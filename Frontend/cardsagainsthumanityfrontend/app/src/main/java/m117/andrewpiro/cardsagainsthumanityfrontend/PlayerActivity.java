@@ -1,5 +1,6 @@
 package m117.andrewpiro.cardsagainsthumanityfrontend;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,14 +51,14 @@ public class PlayerActivity extends AppCompatActivity {
         cards[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cards[0].setText("You clicked me.");
+                cards[0].setBackgroundColor(Color.parseColor("#34546b"));
             }
         });
 
         cards[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cards[1].setText("You clicked me.");
+                cards[1].setBackgroundColor(Color.parseColor("#34546b"));
             }
         });
     }
