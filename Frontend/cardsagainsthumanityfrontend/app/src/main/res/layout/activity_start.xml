@@ -7,6 +7,7 @@
     tools:context=".StartActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cards Against M117"
@@ -17,10 +18,14 @@
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="121dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="77dp"
         android:text="Start"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="342dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </android.support.constraint.ConstraintLayout>
