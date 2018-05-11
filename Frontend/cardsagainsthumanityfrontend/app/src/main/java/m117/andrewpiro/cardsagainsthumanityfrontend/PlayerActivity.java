@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -14,6 +15,8 @@ public class PlayerActivity extends AppCompatActivity {
     CharSequence Question = "What college do you go to?";
     TextView[] cards = new TextView[CARD_NUMBER];
     CharSequence[] cardText = new CharSequence[CARD_NUMBER];
+    int selectedCard = -1;
+    Button submit;
 
     protected void hardCode()
     {
@@ -47,19 +50,52 @@ public class PlayerActivity extends AppCompatActivity {
         cards[0].setText(cardText[0]);
         cards[1].setText(cardText[1]);
 
+        submit = (Button) findViewById(R.id.submitCard);
+
         //set up on click listeners
         cards[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cards[0].setBackgroundColor(Color.parseColor("#34546b"));
+                if(selectedCard == -1)
+                {
+                    cards[0].setBackgroundColor(Color.parseColor("#34546b"));
+                    selectedCard = 0;
+                }
+                else if(selectedCard == 0)
+                {
+                    cards[0].setBackgroundColor(Color.TRANSPARENT);
+                    selectedCard = -1;
+                }
+
             }
         });
 
         cards[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cards[1].setBackgroundColor(Color.parseColor("#34546b"));
+                if(selectedCard == -1)
+                {
+                    cards[1].setBackgroundColor(Color.parseColor("#34546b"));
+                    selectedCard = 1;
+                }
+                else if(selectedCard == 1)
+                {
+                    cards[1].setBackgroundColor(Color.TRANSPARENT);
+                    selectedCard = -1;
+                }
             }
         });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedCard != -1) {
+                    //Intent here, go to loading screen.
+                    //Update count
+                    submit.setText("Pressed button.");
+                }
+            }
+        });
+
     }
 }
