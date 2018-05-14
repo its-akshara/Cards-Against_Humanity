@@ -1,3 +1,28 @@
+/*
+    JSONParser to retrieve JSON card information
+
+    Summary (currently working methods):
+        cardParser() - empty constructor, requires separate call to 'parse'
+        cardParser(Sring path) - identical behavior to 'parse'
+        parse(String fullPathFileName)
+            input: pathname to JSON file
+            imports JSON into variables, should be the first method called before anything else
+        getNumberOfBlackCards() - returns number of black cards in deck
+        getNumberOfWhiteCards() - returns number of white cards in deck
+        getBlackCardByIndex(int index)
+            input: index #
+            output: text of corresponding black card
+        getWhiteCardByIndex(int index)
+            input: index #
+            output: text of corresponding white card
+
+    Issues:
+        - providing pathname for JSON file in parse()
+            Testing uses an absolute path to "cards.json" on my local computer
+            Relative paths did not appear to work - can do further testing for this
+            Alternative: can potentially use AssetManager, but this requires passing in context from the activity that calls the method (further research needed)
+ */
+
 //package main.java;
 package cahCardParser;
 import android.content.Context;
@@ -26,7 +51,7 @@ public class cardParser {
     private int m_blackCardNum;
     private int m_whiteCardNum;
 
-    public cardParser()
+    public cardParser() // current empty
     {
         //JSONObject jo = (JSONObject) obj;
 
@@ -39,6 +64,11 @@ public class cardParser {
             e.printStackTrace();
         }*/
 
+    }
+
+    public cardParser(String path)
+    {
+        parse(path);
     }
 
     public boolean parse(String fullPathFileName)
