@@ -17,7 +17,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
 public class cardParser {
-    private Context myContext;
+    private Context m_Context;
+    private JSONObject m_jo;
+    private JSONArray m_blackCards;
+    private JSONArray m_whiteCards;
+    private Map m_deckInfo;
+
+    private int m_blackCardNum;
+    private int m_whiteCardNum;
 
     public cardParser()
     {
@@ -45,7 +52,82 @@ public class cardParser {
             e.printStackTrace();
         }
 
+        m_jo = (JSONObject) obj;
+
+        m_blackCards = (JSONArray) m_jo.get("blackCards");
+        m_whiteCards = (JSONArray) m_jo.get("whiteCards");
+        m_deckInfo = ((Map)m_jo.get("90s"));
+
+        m_blackCardNum = m_blackCards.size();
+        m_whiteCardNum = m_whiteCards.size();
+
         return true;
+    }
+
+    public String getDeckName() // returns the deck name as a string
+    {
+        return (String) m_deckInfo.get("name");
+    }
+
+    public String getBlackCardsString()     // for testing: returns black cards separated by \n
+    {
+        String bCards = "";
+
+        for (int i = 0; i < m_blackCardNum; i++)
+        {
+            JSONObject cardEntry = (JSONObject) m_blackCards.get(i);
+            bCards += (String) cardEntry.get("text");
+            bCards += "\n";
+        }
+
+        return bCards;
+    }
+
+    public String getWhiteCardsString()     // for testing: returns white cards separated by \n
+    {
+        String wCards = "";
+
+        for(int i = 0; i < m_whiteCardNum; i++)
+        {
+            wCards += (String) m_whiteCards.get(i);
+            wCards += "\n";
+        }
+
+        return wCards;
+    }
+
+    public int getNumberOfBlackCards()      // returns number of black cards in deck
+    {
+        return m_blackCardNum;
+    }
+
+    public int getNumberOfWhiteCards()      // returns number of white cards in deck
+    {
+        return m_whiteCardNum;
+    }
+
+    public String getBlackCardByIndex(int index)
+    // takes index # and returns text of corresponding black card
+    {
+        if (index < 0)
+            return "Error: index cannot be a negative value";
+        else if (index >= m_blackCardNum)
+            return "Error: index out of range";
+
+        JSONObject bCard_temp = (JSONObject) m_blackCards.get(index);
+
+        return (String) bCard_temp.get("text");
+    }
+
+    public String getWhiteCardByIndex(int index)
+    // takes index # and returns text of corresponding white card
+    {
+        if (index < 0)
+            return "Error: index cannot be a negative value";
+        else if (index >= m_whiteCardNum)
+            return "Error: index out of range";
+
+        return (String) m_whiteCards.get(index);
     }
 
     /*private String loadJSONFromAsset(){
