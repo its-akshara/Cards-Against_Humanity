@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="8sp"
-            android:text="fdjal;sdf"
+            android:text="fdslkja"
             android:textAllCaps="false"
             android:textSize="24sp" />
 
@@ -63,5 +63,30 @@
             android:text="fdslkja"
             android:textAllCaps="false"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/card2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8sp"
+            android:text="fdjal;sdf"
+            android:textAllCaps="false"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/card3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8sp"
+            android:text="fdslkja"
+            android:textAllCaps="false"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next Round" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
