@@ -12,9 +12,17 @@
         android:id="@+id/nextRoundButton"
         android:layout_width="151dp"
         android:layout_height="108dp"
+        android:layout_marginBottom="83dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="8dp"
         android:text="Start Next Round"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView2"

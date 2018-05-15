@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import java.util.Random;
+import android.content.Intent;
 
 import cahCardParser.cardParser;
 
@@ -156,7 +157,8 @@ public class PlayerActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                update();
+                Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+                startActivity(i);
             }
         });
     }
