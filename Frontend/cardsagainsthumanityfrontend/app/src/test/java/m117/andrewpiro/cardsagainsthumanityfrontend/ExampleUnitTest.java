@@ -22,7 +22,7 @@ public class ExampleUnitTest {
     @Test
     public void cardParserTest(){
         local_cp = new cardParser();
-        local_cp.parse("C:\\Users\\Jess\\Documents\\GitHub\\Cards-Against_Humanity\\Frontend\\cardsagainsthumanityfrontend\\app\\src\\main\\assets\\cards.json");
+        local_cp.parse();
         String deckName = local_cp.getDeckName();
 
         System.out.println(deckName);
@@ -34,7 +34,7 @@ public class ExampleUnitTest {
             System.out.println(i + ": " + local_cp.getBlackCardByIndex(i));
         }
 
-        System.out.println("White Cards: " + local_cp.getNumberOfWhiteCards() + " total");
+        System.out.println("\nWhite Cards: " + local_cp.getNumberOfWhiteCards() + " total");
         //System.out.println(local_cp.getWhiteCardsString());
 
         for(int i = -1; i <= local_cp.getNumberOfWhiteCards(); i++)
