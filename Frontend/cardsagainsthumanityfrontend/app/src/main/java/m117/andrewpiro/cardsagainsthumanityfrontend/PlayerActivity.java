@@ -11,9 +11,11 @@ public class PlayerActivity extends AppCompatActivity {
     TextView blackCardQuestion;
     static int count = 1;
     final int CARD_NUMBER = 2;
+    int selectedCard = -1;
     CharSequence Question = "What college do you go to?";
     TextView[] cards = new TextView[CARD_NUMBER];
     CharSequence[] cardText = new CharSequence[CARD_NUMBER];
+
 
     protected void hardCode()
     {
@@ -52,6 +54,10 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cards[0].setBackgroundColor(Color.parseColor("#34546b"));
+                if(selectedCard != -1){
+                    cards[selectedCard].setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+                selectedCard = 0;
             }
         });
 
@@ -59,6 +65,10 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cards[1].setBackgroundColor(Color.parseColor("#34546b"));
+                if(selectedCard != -1){
+                    cards[selectedCard].setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+                selectedCard = 1;
             }
         });
     }
