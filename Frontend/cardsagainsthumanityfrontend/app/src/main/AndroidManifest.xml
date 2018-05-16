@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayerActivity"></activity>
+        <activity android:name=".JudgeActivity"></activity>
     </application>
 
 </manifest>

@@ -18,7 +18,17 @@ public class StartActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                //TEMPORARY isJudge, MODIFY LATER
+                //***
+                boolean isJudge = false;
+                ///***
+                Intent i;
+                if(!isJudge){
+                    i = new Intent(getApplicationContext(), PlayerActivity.class);
+                }
+                else {
+                    i = new Intent(getApplicationContext(), JudgeActivity.class);
+                }
                 startActivity(i);
             }
         });
