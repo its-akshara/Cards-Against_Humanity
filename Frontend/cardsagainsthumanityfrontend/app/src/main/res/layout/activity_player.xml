@@ -31,10 +31,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:layout_width="335dp"
-        android:layout_height="390dp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="105dp">
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blackCardQuestion"
+        app:layout_optimizationLevel="standard">
 
         <TableRow
             android:layout_width="match_parent"
@@ -42,16 +47,16 @@
 
             <TextView
                 android:id="@+id/card0"
-                android:layout_width="170dp"
-                android:layout_height="145dp"
+                android:layout_width="150dp"
+                android:layout_height="175dp"
                 android:baselineAligned="false"
                 android:text="TextView"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/card1"
-                android:layout_width="170dp"
-                android:layout_height="145dp"
+                android:layout_width="150dp"
+                android:layout_height="175dp"
                 android:text="TextView"
                 android:textSize="18sp" />
         </TableRow>
@@ -62,31 +67,31 @@
 
             <TextView
                 android:id="@+id/card2"
-                android:layout_width="wrap_content"
-                android:layout_height="153dp"
+                android:layout_width="150dp"
+                android:layout_height="175dp"
                 android:text="TextView"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/card3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="150dp"
+                android:layout_height="175dp"
                 android:text="TextView"
                 android:textSize="18sp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/selectACard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
