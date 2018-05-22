@@ -17,12 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PlayerActivity" />
-
         <activity
             android:name=".LoadingActivity"
             android:label="@string/title_activity_loading"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
@@ -32,8 +30,9 @@
         <service
             android:name=".MessageHandling"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
+        <activity android:name=".JudgeActivity2"></activity>
     </application>
 
 </manifest>

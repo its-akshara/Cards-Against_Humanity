@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".JudgeActivity2"
+    tools:showIn="@layout/activity_judge2">
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="353dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Black Card Question"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="33dp" />
+
+    <TextView
+        android:id="@+id/player1Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player1Card"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="122dp" />
+
+    <TextView
+        android:id="@+id/player2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player2Card"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="197dp" />
+
+</android.support.constraint.ConstraintLayout>

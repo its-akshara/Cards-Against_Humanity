@@ -14,6 +14,7 @@ import cahCardParser.cardParser;
 public class PlayerActivity extends AppCompatActivity {
     TextView playerIDDisplay;
     TextView blackCardQuestion;
+    TextView noCardChosen;
     static int count = 1;
     final int CARD_NUMBER = 4;
     int selectedCard = -1;
@@ -25,6 +26,7 @@ public class PlayerActivity extends AppCompatActivity {
     int numWhiteCards = cp.getNumberOfWhiteCards();
     Random rand = new Random();
     Button update;
+
 
     /*
     protected void hardCode()
@@ -157,8 +159,13 @@ public class PlayerActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
-                startActivity(i);
+                if(selectedCard == -1) {
+                    noCardChosen = findViewById(R.id.selectACard);
+                    noCardChosen.setText("Please choose a card!");
+                } else{
+                    Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }
