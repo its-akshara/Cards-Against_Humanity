@@ -18,7 +18,6 @@
         android:id="@+id/blackCardQuestion"
         android:layout_width="320dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="22dp"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
@@ -26,72 +25,77 @@
         android:textAlignment="textStart"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/playerID"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="368dp"
+    <TableLayout
+        android:layout_width="335dp"
         android:layout_height="390dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blackCardQuestion">
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="105dp">
 
-        <TextView
-            android:id="@+id/card0"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="8sp"
-            android:text="fdslkja"
-            android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:layout_height="119dp">
 
-        <TextView
-            android:id="@+id/card1"
+            <TextView
+                android:id="@+id/card0"
+                android:layout_width="170dp"
+                android:layout_height="145dp"
+                android:baselineAligned="false"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/card1"
+                android:layout_width="170dp"
+                android:layout_height="145dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="8sp"
-            android:text="fdslkja"
-            android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/card2"
+            <TextView
+                android:id="@+id/card2"
+                android:layout_width="wrap_content"
+                android:layout_height="153dp"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/card3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="8sp"
-            android:text="fdjal;sdf"
-            android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/card3"
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="8sp"
-            android:text="fdslkja"
-            android:textAllCaps="false"
-            android:textSize="24sp" />
+            android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/reset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Card" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/selectACard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select" />
+        </TableRow>
+    </TableLayout>
 
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
