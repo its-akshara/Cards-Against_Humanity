@@ -10,9 +10,10 @@
         android:id="@+id/playerID"
         android:layout_width="54dp"
         android:layout_height="22dp"
+        android:layout_marginStart="24dp"
         android:text="Player"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="2dp" />
+        tools:layout_editor_absoluteY="3dp" />
 
     <TextView
         android:id="@+id/blackCardQuestion"
@@ -50,6 +51,7 @@
                 android:layout_width="150dp"
                 android:layout_height="175dp"
                 android:baselineAligned="false"
+                android:padding="10dp"
                 android:text="TextView"
                 android:textSize="18sp" />
 
@@ -58,7 +60,8 @@
                 android:layout_width="150dp"
                 android:layout_height="175dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:padding="10dp"/>
         </TableRow>
 
         <TableRow
@@ -70,14 +73,16 @@
                 android:layout_width="150dp"
                 android:layout_height="175dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:padding="10dp"/>
 
             <TextView
                 android:id="@+id/card3"
                 android:layout_width="150dp"
                 android:layout_height="175dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:padding="10dp"/>
         </TableRow>
 
         <TableRow
