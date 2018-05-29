@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+//import playerInformation.Player;
 import java.util.Random;
 
 import cahCardParser.cardParser;
@@ -26,6 +26,8 @@ public class JudgeActivity2 extends AppCompatActivity {
     int numWhiteCards = cp.getNumberOfWhiteCards();
     Random rand = new Random();
     Button confirm;
+    //Player judge;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

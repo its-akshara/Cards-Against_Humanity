@@ -8,14 +8,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.util.Random;
 import android.content.Intent;
-
+import playerInformation.Player;
 import cahCardParser.cardParser;
 
 public class PlayerActivity extends AppCompatActivity {
     TextView playerIDDisplay;
     TextView blackCardQuestion;
     TextView noCardChosen;
-    static int count = 1;
+    //static int count = 1;
     final int CARD_NUMBER = 4;
     int selectedCard = -1;
     CharSequence Question = "What college do you go to?";
@@ -26,7 +26,8 @@ public class PlayerActivity extends AppCompatActivity {
     int numWhiteCards = cp.getNumberOfWhiteCards();
     Random rand = new Random();
     Button update;
-
+    Player player;
+    Bundle previousActivityInfo;
 
     /*
     protected void hardCode()
@@ -74,11 +75,12 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
 
         //hardCode();
-
-
+        player = new Player();
+        previousActivityInfo = getIntent().getExtras();
+        player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
 
         playerIDDisplay= (TextView) findViewById(R.id.playerID);
-        playerIDDisplay.setText("Player " + count);
+        playerIDDisplay.setText("Player " + player.getPlayer());
 
         //randomly select one black card
         int bCardID = rand.nextInt(numBlackCards);
