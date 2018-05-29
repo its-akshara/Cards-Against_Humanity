@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import playerInformation.Player;
+import android.widget.ImageView;
 
 public class StartActivity extends AppCompatActivity {
     Button startButton;
@@ -24,6 +25,43 @@ public class StartActivity extends AppCompatActivity {
         //create or initialize connection here
         player  = new Player();
 
+
+        final ImageView player1 = (ImageView) findViewById(R.id.player1);
+        player1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.setPlayerID(0);
+                player1.setAlpha(1.0f);
+            }
+        });
+
+        final ImageView player2 = (ImageView) findViewById(R.id.player2);
+        player2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.setPlayerID(1);
+                player2.setAlpha(1.0f);
+            }
+        });
+
+
+        final ImageView player3 = (ImageView) findViewById(R.id.player3);
+        player3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.setPlayerID(2);
+                player3.setAlpha(1.0f);
+            }
+        });
+
+        final ImageView player4 = (ImageView) findViewById(R.id.player4);
+        player4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.setPlayerID(3);
+                player4.setAlpha(1.0f);
+            }
+        });
 
         startButton = (Button)findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {

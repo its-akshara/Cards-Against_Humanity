@@ -1,6 +1,12 @@
 package playerInformation;
 
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.content.Context;
+import android.view.View;
+//import android.support.v7.app.AppCompatActivity;
+//import android.app.Activity;
+//import android.os.Bundle;
 
 public class Player {
     enum player_ids{JUDGE,PLAYER1,PLAYER2,PLAYER3};
@@ -17,9 +23,12 @@ public class Player {
 
     public Player()
     {
-        androidID =  Settings.Secure.ANDROID_ID;
-        int tmpPlayerID = androidID.hashCode();
-        playerID = tmpPlayerID%numberOfPlayers;
+       // TelephonyManager tm;
+        //tm  = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        playerID = 1;
+//        androidID = Settings.Secure.getString(, Settings.Secure.ANDROID_ID)
+//        int tmpPlayerID = androidID.hashCode();
+//        playerID = tmpPlayerID%numberOfPlayers;
     }
 
     public int getPlayer()
