@@ -93,10 +93,27 @@ public class PlayerActivity extends AppCompatActivity {
         cards[2] = (TextView) findViewById(R.id.card2);
         cards[3] = (TextView) findViewById(R.id.card3);
 
+        int[] cardIDs = new int [CARD_NUMBER];
+
         //need to display cards you can choose
         for(int i = 0; i<CARD_NUMBER; i++)
         {
             int wCardID = rand.nextInt(numWhiteCards);
+
+            boolean isRepeat;
+
+            do {
+                isRepeat = false;
+
+                for (int ii = 0; ii < i; ii++) {
+                    if (cardIDs[ii] == wCardID)
+                        isRepeat = true;
+                }
+
+                if(isRepeat)
+                    wCardID = rand.nextInt(numWhiteCards);
+            } while(isRepeat);
+
             cardText[i] = cp.getWhiteCardByIndex(wCardID);
 
         }
