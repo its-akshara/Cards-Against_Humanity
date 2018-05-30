@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-//import playerInformation.Player;
+import playerInformation.Player;
 import java.util.Random;
 
 import cahCardParser.cardParser;
@@ -26,12 +26,18 @@ public class JudgeActivity2 extends AppCompatActivity {
     int numWhiteCards = cp.getNumberOfWhiteCards();
     Random rand = new Random();
     Button confirm;
-    //Player judge;
+    Bundle previousActivityInfo;
+    Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge2);
+
+        player = new Player();
+        previousActivityInfo = getIntent().getExtras();
+        player.setRound(previousActivityInfo.getInt("ROUND"));
+        player.setRound(previousActivityInfo.getInt("PLAYER_ID"));
 
         //randomly select one black card
         int bCardID = rand.nextInt(numBlackCards);
@@ -87,6 +93,8 @@ public class JudgeActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+                i.putExtra("PLAYER_ID",player.getPlayer());
+                i.putExtra("ROUND",player.getRound());
                 startActivity(i);
             }
         });

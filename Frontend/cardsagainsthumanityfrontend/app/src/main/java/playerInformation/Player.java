@@ -31,6 +31,16 @@ public class Player {
 //        playerID = tmpPlayerID%numberOfPlayers;
     }
 
+    public int getRound()
+    {
+        return round;
+    }
+
+    public int setRound(int n)
+    {
+        round = n;
+    }
+
     public int getPlayer()
     {
         return playerID;

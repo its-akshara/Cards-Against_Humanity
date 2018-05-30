@@ -72,11 +72,13 @@ public class StartActivity extends AppCompatActivity {
                 {
                     Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                     i.putExtra("PLAYER_ID",player.getPlayer());
+                    i.putExtra("ROUND",player.getRound());
                     startActivity(i);
                 }
                 else {
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID",player.getPlayer());
+                    i.putExtra("ROUND",player.getRound());
                     startActivity(i);
                 }
             }

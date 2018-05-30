@@ -13,6 +13,7 @@ import playerInformation.Player;
 public class LoadingActivity extends AppCompatActivity {
     Button nextRoundBtn;
     Player currentPlayer;
+    Bundle previousActivityInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,10 @@ public class LoadingActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         currentPlayer  = new Player();
+        previousActivityInfo = getIntent().getExtras();
+        currentPlayer.setRound(previousActivityInfo.getInt("ROUND"));
+        currentPlayer.setRound(previousActivityInfo.getInt("PLAYER_ID"));
+
         nextRoundBtn = (Button)findViewById(R.id.nextRoundButton);
 
         currentPlayer.updatePlayer();
@@ -33,11 +38,13 @@ public class LoadingActivity extends AppCompatActivity {
                 {
                     Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                     i.putExtra("PLAYER_ID",currentPlayer.getPlayer());
+                    i.putExtra("ROUND",currentPlayer.getRound());
                     startActivity(i);
                 }
                 else {
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID",currentPlayer.getPlayer());
+                    i.putExtra("ROUND",currentPlayer.getRound());
                     startActivity(i);
                 }
             }

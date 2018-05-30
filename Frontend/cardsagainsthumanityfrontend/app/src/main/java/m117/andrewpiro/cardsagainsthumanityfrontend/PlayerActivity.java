@@ -78,6 +78,7 @@ public class PlayerActivity extends AppCompatActivity {
         player = new Player();
         previousActivityInfo = getIntent().getExtras();
         player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
+        player.setRound(previousActivityInfo.getInt("ROUND"));
 
         playerIDDisplay= (TextView) findViewById(R.id.playerID);
         playerIDDisplay.setText("Player " + player.getPlayer());
@@ -183,6 +184,8 @@ public class PlayerActivity extends AppCompatActivity {
                     noCardChosen.setText("Please choose a card!");
                 } else{
                     Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+                    i.putExtra("PLAYER_ID",player.getPlayer());
+                    i.putExtra("ROUND",player.getRound());
                     startActivity(i);
                 }
             }
