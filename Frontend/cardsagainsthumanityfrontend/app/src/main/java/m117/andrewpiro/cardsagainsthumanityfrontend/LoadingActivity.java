@@ -8,9 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import playerInformation.Player;
 
 public class LoadingActivity extends AppCompatActivity {
     Button nextRoundBtn;
+    Player currentPlayer;
+    Bundle previousActivityInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +21,32 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+        currentPlayer  = new Player();
+        previousActivityInfo = getIntent().getExtras();
+        currentPlayer.setRound(previousActivityInfo.getInt("ROUND"));
+        currentPlayer.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
 
         nextRoundBtn = (Button)findViewById(R.id.nextRoundButton);
+
+        currentPlayer.updatePlayer();
 
         nextRoundBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-                startActivity(i);
+                if(currentPlayer.isJudge())
+                {
+                    Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                    i.putExtra("PLAYER_ID",currentPlayer.getPlayer());
+                    i.putExtra("ROUND",currentPlayer.getRound());
+                    startActivity(i);
+                }
+                else {
+                    Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                    i.putExtra("PLAYER_ID",currentPlayer.getPlayer());
+                    i.putExtra("ROUND",currentPlayer.getRound());
+                    startActivity(i);
+                }
             }
 
         });

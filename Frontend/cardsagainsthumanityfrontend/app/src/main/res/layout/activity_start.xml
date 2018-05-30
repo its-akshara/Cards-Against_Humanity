@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.071" />
 
     <Button
         android:id="@+id/startButton"
@@ -26,6 +27,68 @@
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TableLayout
+        android:layout_width="287dp"
+        android:layout_height="179dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="37dp"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerPic">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/player1"
+                android:layout_width="120dp"
+                android:layout_height="87dp"
+                android:alpha="0.4"
+                android:src="@drawable/player1"
+                tools:layout_editor_absoluteX="107dp"
+                tools:layout_editor_absoluteY="155dp" />
+
+            <ImageView
+                android:id="@+id/player2"
+                android:layout_width="113dp"
+                android:layout_height="match_parent"
+                android:alpha="0.4"
+                app:srcCompat="@drawable/player2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/player3"
+                android:layout_width="106dp"
+                android:layout_height="94dp"
+                android:alpha="0.4"
+                app:srcCompat="@drawable/player3"
+                tools:layout_editor_absoluteX="64dp"
+                tools:layout_editor_absoluteY="225dp" />
+
+            <ImageView
+                android:id="@+id/player4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.4"
+                app:srcCompat="@drawable/player4" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/playerPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Player!"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="84dp" />
 
 </android.support.constraint.ConstraintLayout>
