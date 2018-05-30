@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="3dp" />
 
     <TextView
-        android:id="@+id/blackCardQuestion"
+        android:id="@+id/blackQuestion"
         android:layout_width="320dp"
         android:layout_height="62dp"
         android:layout_marginEnd="5dp"
@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="300dp"
         android:layout_height="400dp"
         android:layout_marginEnd="32dp"
@@ -39,7 +40,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blackCardQuestion"
+        app:layout_constraintTop_toBottomOf="@+id/blackQuestion"
         app:layout_optimizationLevel="standard">
 
         <TableRow
@@ -72,17 +73,17 @@
                 android:id="@+id/card2"
                 android:layout_width="150dp"
                 android:layout_height="175dp"
+                android:padding="10dp"
                 android:text="TextView"
-                android:textSize="18sp"
-                android:padding="10dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/card3"
                 android:layout_width="150dp"
                 android:layout_height="175dp"
+                android:padding="10dp"
                 android:text="TextView"
-                android:textSize="18sp"
-                android:padding="10dp"/>
+                android:textSize="18sp" />
         </TableRow>
 
         <TableRow
@@ -107,5 +108,18 @@
                 android:text="Select" />
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="194dp"
+        android:layout_marginTop="4dp"
+        android:text="Round"
+        app:layout_constraintBottom_toTopOf="@+id/blackQuestion"
+        app:layout_constraintStart_toEndOf="@+id/playerID"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

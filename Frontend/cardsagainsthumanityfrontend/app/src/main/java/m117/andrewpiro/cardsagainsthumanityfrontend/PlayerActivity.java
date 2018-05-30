@@ -15,6 +15,7 @@ public class PlayerActivity extends AppCompatActivity {
     TextView playerIDDisplay;
     TextView blackCardQuestion;
     TextView noCardChosen;
+    TextView currentRound;
     //static int count = 1;
     final int CARD_NUMBER = 4;
     int selectedCard = -1;
@@ -42,8 +43,12 @@ public class PlayerActivity extends AppCompatActivity {
         int bCardID = rand.nextInt(numBlackCards);
         Question = cp.getBlackCardByIndex(bCardID);
 
+        //get round
+        currentRound = (TextView)findViewById(R.id.round);
+        currentRound.setText("Round "+player.getRound());
+
         //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackCardQuestion);
+        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
         blackCardQuestion.setText(Question);
 
         cards[0] = (TextView) findViewById(R.id.card0);
@@ -81,14 +86,17 @@ public class PlayerActivity extends AppCompatActivity {
         player.setRound(previousActivityInfo.getInt("ROUND"));
 
         playerIDDisplay= (TextView) findViewById(R.id.playerID);
-        playerIDDisplay.setText("Player " + player.getPlayer());
+        playerIDDisplay.setText("Player " + (1+player.getPlayer()));
+
+        currentRound = (TextView)findViewById(R.id.round);
+        currentRound.setText("Round "+(player.getRound()+1));
 
         //randomly select one black card
         int bCardID = rand.nextInt(numBlackCards);
         Question = cp.getBlackCardByIndex(bCardID);
 
         //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackCardQuestion);
+        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
         blackCardQuestion.setText(Question);
 
         cards[0] = (TextView) findViewById(R.id.card0);

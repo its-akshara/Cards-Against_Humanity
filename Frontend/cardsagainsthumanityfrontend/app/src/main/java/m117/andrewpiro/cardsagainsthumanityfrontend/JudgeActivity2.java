@@ -22,8 +22,8 @@ public class JudgeActivity2 extends AppCompatActivity {
     TextView[] cards = new TextView[CARD_NUMBER];
     CharSequence[] cardText = new CharSequence[CARD_NUMBER];
     cardParser cp = new cardParser();
-    int numBlackCards = cp.getNumberOfBlackCards();
-    int numWhiteCards = cp.getNumberOfWhiteCards();
+    int numBlackCards;
+    int numWhiteCards;
     Random rand = new Random();
     Button confirm;
     Bundle previousActivityInfo;
@@ -33,19 +33,18 @@ public class JudgeActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge2);
+        numBlackCards = cp.getNumberOfBlackCards();
+        numWhiteCards = cp.getNumberOfWhiteCards();
 
         player = new Player();
         previousActivityInfo = getIntent().getExtras();
         player.setRound(previousActivityInfo.getInt("ROUND"));
-        player.setRound(previousActivityInfo.getInt("PLAYER_ID"));
+        player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
 
         //randomly select one black card
         int bCardID = rand.nextInt(numBlackCards);
         Question = cp.getBlackCardByIndex(bCardID);
 
-        //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackCardQuestion);
-        blackCardQuestion.setText(Question);
 
         cards[0] = (TextView) findViewById(R.id.player1Card);
         cards[1] = (TextView) findViewById(R.id.player2Card);
@@ -64,6 +63,13 @@ public class JudgeActivity2 extends AppCompatActivity {
 
         cards[0].setText(cardText[0]);
         cards[1].setText(cardText[1]);
+
+
+        //receive the info about the black card from a server. Use the global value
+        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
+        blackCardQuestion.setText(Question);
+
+
 
         //set up on click listeners
         cards[0].setOnClickListener(new View.OnClickListener() {

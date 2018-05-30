@@ -12,20 +12,20 @@ public class Player {
     enum player_ids{JUDGE,PLAYER1,PLAYER2,PLAYER3};
 
     private int playerID;
-    private String androidID;
+    //private String androidID;
     private int numberOfPlayers = 3;
     private int round = 0;
 
     public boolean isJudge()
     {
-        return player_ids.JUDGE.equals(round%playerID);
+        return playerID == (round%numberOfPlayers);
     }
 
     public Player()
     {
        // TelephonyManager tm;
         //tm  = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        playerID = 1;
+        //playerID = 1;
 //        androidID = Settings.Secure.getString(, Settings.Secure.ANDROID_ID)
 //        int tmpPlayerID = androidID.hashCode();
 //        playerID = tmpPlayerID%numberOfPlayers;
@@ -36,7 +36,7 @@ public class Player {
         return round;
     }
 
-    public int setRound(int n)
+    public void setRound(int n)
     {
         round = n;
     }

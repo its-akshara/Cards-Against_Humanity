@@ -24,7 +24,7 @@ public class LoadingActivity extends AppCompatActivity {
         currentPlayer  = new Player();
         previousActivityInfo = getIntent().getExtras();
         currentPlayer.setRound(previousActivityInfo.getInt("ROUND"));
-        currentPlayer.setRound(previousActivityInfo.getInt("PLAYER_ID"));
+        currentPlayer.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
 
         nextRoundBtn = (Button)findViewById(R.id.nextRoundButton);
 

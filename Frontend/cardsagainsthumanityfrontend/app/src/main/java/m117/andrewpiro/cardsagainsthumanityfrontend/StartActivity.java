@@ -24,7 +24,7 @@ public class StartActivity extends AppCompatActivity {
 
         //create or initialize connection here
         player  = new Player();
-
+        player.setRound(0);
 
         final ImageView player1 = (ImageView) findViewById(R.id.player1);
         player1.setOnClickListener(new View.OnClickListener() {
