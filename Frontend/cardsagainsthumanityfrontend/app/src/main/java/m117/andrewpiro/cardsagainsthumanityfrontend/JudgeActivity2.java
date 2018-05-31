@@ -33,6 +33,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge2);
+        getSupportActionBar().setTitle("Choose a Winner");
         numBlackCards = cp.getNumberOfBlackCards();
         numWhiteCards = cp.getNumberOfWhiteCards();
 
