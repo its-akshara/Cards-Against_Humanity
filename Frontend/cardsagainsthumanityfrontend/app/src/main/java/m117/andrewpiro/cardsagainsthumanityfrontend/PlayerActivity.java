@@ -163,7 +163,8 @@ public class PlayerActivity extends AppCompatActivity {
                 if(isRepeat)
                     wCardID = rand.nextInt(numWhiteCards);
             } while(isRepeat);
-
+            
+            cardIDs[i] = wCardID;
             cardText[i] = cp.getWhiteCardByIndex(wCardID);
             cardToParseIndex.put(i,wCardID);
 
