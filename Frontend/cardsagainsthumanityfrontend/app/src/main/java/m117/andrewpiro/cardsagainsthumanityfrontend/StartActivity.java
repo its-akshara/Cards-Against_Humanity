@@ -31,44 +31,59 @@ public class StartActivity extends AppCompatActivity {
         player.setRound(0);
 
         final ImageView player1 = (ImageView) findViewById(R.id.player1);
+        final ImageView player2 = (ImageView) findViewById(R.id.player2);
+        final ImageView player3 = (ImageView) findViewById(R.id.player3);
+        final ImageView player4 = (ImageView) findViewById(R.id.player4);
+
+        player1.setAlpha(0.4f);
+        player2.setAlpha(0.4f);
+        player3.setAlpha(0.4f);
+        player4.setAlpha(0.4f);
+
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player.setPlayerID(0);
                 player1.setAlpha(1.0f);
+                player2.setAlpha(0.4f);
+                player3.setAlpha(0.4f);
+                player4.setAlpha(0.4f);
 
                 playerText.setText("You Chose: Gene Block");
             }
         });
-
-        final ImageView player2 = (ImageView) findViewById(R.id.player2);
         player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player.setPlayerID(1);
+                player1.setAlpha(0.4f);
                 player2.setAlpha(1.0f);
+                player3.setAlpha(0.4f);
+                player4.setAlpha(0.4f);
 
                 playerText.setText("You Chose: Prof. Smallberg");
             }
         });
 
-
-        final ImageView player3 = (ImageView) findViewById(R.id.player3);
         player3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player.setPlayerID(2);
+                player1.setAlpha(0.4f);
+                player2.setAlpha(0.4f);
                 player3.setAlpha(1.0f);
+                player4.setAlpha(0.4f);
 
                 playerText.setText("You Chose: Prof. Eggert");
             }
         });
-
-        final ImageView player4 = (ImageView) findViewById(R.id.player4);
         player4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player.setPlayerID(3);
+                player1.setAlpha(0.4f);
+                player2.setAlpha(0.4f);
+                player3.setAlpha(0.4f);
                 player4.setAlpha(1.0f);
 
                 playerText.setText("You Chose: Prof. Dzhanidze");
