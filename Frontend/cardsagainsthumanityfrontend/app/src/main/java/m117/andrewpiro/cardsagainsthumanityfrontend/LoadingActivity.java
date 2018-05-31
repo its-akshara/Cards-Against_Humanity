@@ -14,6 +14,7 @@ public class LoadingActivity extends AppCompatActivity {
     Button nextRoundBtn;
     Player currentPlayer;
     Bundle previousActivityInfo;
+    boolean winnerChosen = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +35,18 @@ public class LoadingActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v){
-                if(currentPlayer.isJudge())
-                {
-                    Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
-                    i.putExtra("PLAYER_ID",currentPlayer.getPlayer());
-                    i.putExtra("ROUND",currentPlayer.getRound());
-                    startActivity(i);
-                }
-                else {
-                    Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-                    i.putExtra("PLAYER_ID",currentPlayer.getPlayer());
-                    i.putExtra("ROUND",currentPlayer.getRound());
-                    startActivity(i);
+                if(winnerChosen) {
+                    if (currentPlayer.isJudge()) {
+                        Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                        i.putExtra("PLAYER_ID", currentPlayer.getPlayer());
+                        i.putExtra("ROUND", currentPlayer.getRound());
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                        i.putExtra("PLAYER_ID", currentPlayer.getPlayer());
+                        i.putExtra("ROUND", currentPlayer.getRound());
+                        startActivity(i);
+                    }
                 }
             }
 
