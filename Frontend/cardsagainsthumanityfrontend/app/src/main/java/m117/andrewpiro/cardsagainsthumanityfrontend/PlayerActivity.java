@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import java.util.Random;
+import java.util.HashMap;
 import android.content.Intent;
 import playerInformation.Player;
 import cahCardParser.cardParser;
@@ -29,6 +30,8 @@ public class PlayerActivity extends AppCompatActivity {
     Button update;
     Player player;
     Bundle previousActivityInfo;
+    //Stores cardNo->Index of Card in Parser
+    HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
 
     /*
     protected void hardCode()
@@ -128,6 +131,7 @@ public class PlayerActivity extends AppCompatActivity {
             } while(isRepeat);
 
             cardText[i] = cp.getWhiteCardByIndex(wCardID);
+            cardToParseIndex.put(i,wCardID);
 
         }
 
@@ -193,6 +197,9 @@ public class PlayerActivity extends AppCompatActivity {
                     noCardChosen = findViewById(R.id.selectACard);
                     noCardChosen.setText("Please choose a card!");
                 } else{
+                    //byte array for information transfer
+                    byte[] selectedCardInfo = {((byte) player.getPlayer()),cardToParseIndex.get(selectedCard).byteValue()};
+
                     Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
                     i.putExtra("PLAYER_ID",player.getPlayer());
                     i.putExtra("ROUND",player.getRound());
