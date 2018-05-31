@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import playerInformation.Player;
 import android.widget.ImageView;
@@ -14,13 +15,16 @@ import android.widget.ImageView;
 public class StartActivity extends AppCompatActivity {
     Button startButton;
     Player player;
-
+    TextView playerText;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        playerText = (TextView) findViewById(R.id.player_text);
+        playerText.setText("You Chose:");
 
         //create or initialize connection here
         player  = new Player();
@@ -32,6 +36,8 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 player.setPlayerID(0);
                 player1.setAlpha(1.0f);
+
+                playerText.setText("You Chose: Gene Block");
             }
         });
 
@@ -41,6 +47,8 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 player.setPlayerID(1);
                 player2.setAlpha(1.0f);
+
+                playerText.setText("You Chose: Prof. Smallberg");
             }
         });
 
@@ -51,6 +59,8 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 player.setPlayerID(2);
                 player3.setAlpha(1.0f);
+
+                playerText.setText("You Chose: Prof. Eggert");
             }
         });
 
@@ -60,6 +70,8 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 player.setPlayerID(3);
                 player4.setAlpha(1.0f);
+
+                playerText.setText("You Chose: Prof. Dzhanidze");
             }
         });
 
