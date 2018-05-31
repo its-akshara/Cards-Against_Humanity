@@ -49,7 +49,7 @@ public class StartActivity extends AppCompatActivity {
                 player3.setAlpha(0.4f);
                 player4.setAlpha(0.4f);
 
-                playerText.setText("You Chose: Gene Block");
+                playerText.setText("You Chose: Gene \"The Judge\" Block");
             }
         });
         player2.setOnClickListener(new View.OnClickListener() {
