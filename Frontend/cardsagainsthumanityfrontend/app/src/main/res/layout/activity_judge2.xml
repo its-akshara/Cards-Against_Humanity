@@ -4,57 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JudgeActivity2">
+    tools:context=".JudgeActivity2"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/blackQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="75dp"
         android:text="BlackCardQuestion"
-        app:layout_constraintBottom_toTopOf="@+id/player1Card"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="133dp"
+        tools:layout_editor_absoluteY="34dp" />
 
     <Button
         android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginStart="237dp"
-        android:layout_marginTop="376dp"
-        android:text="Confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
+        android:text="Select"
+        tools:layout_editor_absoluteX="237dp"
+        tools:layout_editor_absoluteY="429dp" />
 
     <TextView
         android:id="@+id/player1Card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="65dp"
         android:text="Player1Text"
-        app:layout_constraintBottom_toTopOf="@+id/player2Card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="165dp" />
 
     <TextView
         android:id="@+id/player2Card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="279dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="36dp"
         android:text="Player2Text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1Card" />
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="255dp" />
+
+    <TextView
+        android:id="@+id/noCardChoosen"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="445dp" />
+
 </android.support.constraint.ConstraintLayout>

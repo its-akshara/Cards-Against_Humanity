@@ -15,6 +15,7 @@ import cahCardParser.cardParser;
 public class JudgeActivity2 extends AppCompatActivity {
     TextView playerIDDisplay;
     TextView blackCardQuestion;
+    TextView errorMessage;
     static int count = 1;
     final int CARD_NUMBER = 2;
     int selectedCard = -1;
@@ -99,10 +100,15 @@ public class JudgeActivity2 extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
-                i.putExtra("PLAYER_ID",player.getPlayer());
-                i.putExtra("ROUND",player.getRound());
-                startActivity(i);
+                if (selectedCard == -1) {
+                    errorMessage = (TextView) findViewById(R.id.noCardChoosen);
+                    errorMessage.setText("Please choose a winner!");
+                } else {
+                    Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+                    i.putExtra("PLAYER_ID", player.getPlayer());
+                    i.putExtra("ROUND", player.getRound());
+                    startActivity(i);
+                }
             }
         });
 
