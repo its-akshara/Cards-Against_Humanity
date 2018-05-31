@@ -23,6 +23,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        getSupportActionBar().setTitle("Player Select");
         playerText = (TextView) findViewById(R.id.player_text);
         playerText.setText("You Chose:");
 

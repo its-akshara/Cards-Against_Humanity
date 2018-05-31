@@ -79,6 +79,8 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
+        getSupportActionBar().setTitle("Select a White Card");
+
         //hardCode();
         player = new Player();
         previousActivityInfo = getIntent().getExtras();
