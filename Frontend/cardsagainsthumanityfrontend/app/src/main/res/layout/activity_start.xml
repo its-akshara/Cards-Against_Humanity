@@ -104,9 +104,13 @@
         android:id="@+id/playerPic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="129dp"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="18dp"
         android:text="Choose Your Player!"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="84dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/player_text"
@@ -114,10 +118,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="75dp"
         android:layout_marginStart="75dp"
+        android:layout_marginTop="50dp"
         android:text="You Chose: "
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="436dp" />
+        app:layout_constraintTop_toBottomOf="@+id/startButton" />
 
 </android.support.constraint.ConstraintLayout>
