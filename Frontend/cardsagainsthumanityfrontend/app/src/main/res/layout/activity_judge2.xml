@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JudgeActivity2">
+    tools:context=".JudgeActivity2"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/blackQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="75dp"
+        android:layout_width="320dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="25dp"
         android:text="BlackCardQuestion"
-        app:layout_constraintBottom_toTopOf="@+id/player1Card"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -25,36 +24,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="34dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginStart="237dp"
-        android:layout_marginTop="376dp"
-        android:text="Confirm"
+        android:layout_marginEnd="51dp"
+        android:text="Select"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/player1Card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="65dp"
+        android:layout_width="150dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="45dp"
         android:text="Player1Text"
-        app:layout_constraintBottom_toTopOf="@+id/player2Card"
+        android:textSize="18sp"
+        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
 
     <TextView
         android:id="@+id/player2Card"
+        android:layout_width="150dp"
+        android:layout_height="175dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="45dp"
+        android:text="Player2Text"
+        android:textSize="18sp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
+
+    <TextView
+        android:id="@+id/noCardChoosen"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginBottom="47dp"
+        android:layout_marginStart="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="279dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="36dp"
-        android:text="Player2Text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="4dp"
+        android:text="Round"
+        app:layout_constraintBottom_toTopOf="@+id/blackQuestion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1Card" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -16,6 +16,7 @@ public class StartActivity extends AppCompatActivity {
     Button startButton;
     Player player;
     TextView playerText;
+    int playerID = -1;
 
 
     @Override
@@ -44,7 +45,8 @@ public class StartActivity extends AppCompatActivity {
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.setPlayerID(0);
+                playerID = 0;
+                player.setPlayerID(playerID);
                 player1.setAlpha(1.0f);
                 player2.setAlpha(0.4f);
                 player3.setAlpha(0.4f);
@@ -56,7 +58,8 @@ public class StartActivity extends AppCompatActivity {
         player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.setPlayerID(1);
+                playerID = 1;
+                player.setPlayerID(playerID);
                 player1.setAlpha(0.4f);
                 player2.setAlpha(1.0f);
                 player3.setAlpha(0.4f);
@@ -69,7 +72,8 @@ public class StartActivity extends AppCompatActivity {
         player3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.setPlayerID(2);
+                playerID = 2;
+                player.setPlayerID(playerID);
                 player1.setAlpha(0.4f);
                 player2.setAlpha(0.4f);
                 player3.setAlpha(1.0f);
@@ -81,7 +85,8 @@ public class StartActivity extends AppCompatActivity {
         player4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.setPlayerID(3);
+                playerID = 3;
+                player.setPlayerID(playerID);
                 player1.setAlpha(0.4f);
                 player2.setAlpha(0.4f);
                 player3.setAlpha(0.4f);
@@ -96,18 +101,21 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(player.isJudge())
-                {
-                    Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
-                    i.putExtra("PLAYER_ID",player.getPlayer());
-                    i.putExtra("ROUND",player.getRound());
-                    startActivity(i);
-                }
-                else {
-                    Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-                    i.putExtra("PLAYER_ID",player.getPlayer());
-                    i.putExtra("ROUND",player.getRound());
-                    startActivity(i);
+                if(playerID == -1) {
+                    playerText.setText("Please choose a Player!");
+                } else {
+
+                    if (player.isJudge()) {
+                        Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                        i.putExtra("PLAYER_ID", player.getPlayer());
+                        i.putExtra("ROUND", player.getRound());
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                        i.putExtra("PLAYER_ID", player.getPlayer());
+                        i.putExtra("ROUND", player.getRound());
+                        startActivity(i);
+                    }
                 }
             }
         });
