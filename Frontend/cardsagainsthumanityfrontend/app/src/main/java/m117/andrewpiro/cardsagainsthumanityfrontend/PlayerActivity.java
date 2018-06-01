@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.widget.TextView;
 import java.util.Random;
 import java.util.HashMap;
+import com.google.android.gms.common.api.GoogleApiClient;
 import android.content.Intent;
 import playerInformation.Player;
 import cahCardParser.cardParser;
@@ -60,6 +61,7 @@ public class PlayerActivity extends AppCompatActivity {
     Button update;
     Player player;
     Bundle previousActivityInfo;
+    public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
     HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
 
@@ -117,6 +119,14 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
 
         getSupportActionBar().setTitle("Select a White Card");
+
+        //API stuff
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
+                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
+                .addApi(Nearby.CONNECTIONS_API)
+                .build();
+
 
         //hardCode();
         player = new Player();

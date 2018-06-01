@@ -5,6 +5,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.nearby.Nearby;
+
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
@@ -15,6 +18,8 @@ public class LoadingActivity extends AppCompatActivity {
     Player currentPlayer;
     Bundle previousActivityInfo;
     boolean winnerChosen = true;
+    public GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,14 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
+        //API stuff
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
+                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
+                .addApi(Nearby.CONNECTIONS_API)
+                .build();
+
         currentPlayer  = new Player();
         previousActivityInfo = getIntent().getExtras();
         currentPlayer.setRound(previousActivityInfo.getInt("ROUND"));
