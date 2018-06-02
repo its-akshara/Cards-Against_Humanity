@@ -121,11 +121,11 @@ public class PlayerActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Select a White Card");
 
         //API stuff
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
-                .addApi(Nearby.CONNECTIONS_API)
-                .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
+//                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
+//                .addApi(Nearby.CONNECTIONS_API)
+//                .build();
 
 
         //hardCode();
