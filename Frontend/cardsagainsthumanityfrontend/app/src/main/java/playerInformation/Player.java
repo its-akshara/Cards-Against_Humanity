@@ -1,9 +1,5 @@
 package playerInformation;
 
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.content.Context;
-import android.view.View;
 //import android.support.v7.app.AppCompatActivity;
 //import android.app.Activity;
 //import android.os.Bundle;
@@ -45,6 +41,8 @@ public class Player {
     {
         return playerID;
     }
+
+    public String getPlayerAsString() {return String.valueOf(playerID);}
 
     public void setPlayerID(int n)
     {
