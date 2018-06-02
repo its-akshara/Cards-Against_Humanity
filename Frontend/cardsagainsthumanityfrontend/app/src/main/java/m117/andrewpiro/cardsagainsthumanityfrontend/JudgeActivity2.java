@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.nearby.Nearby;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,23 +29,11 @@ public class JudgeActivity2 extends AppCompatActivity {
     Button confirm;
     Bundle previousActivityInfo;
     Player player;
-    public GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge2);
-
-        //API stuff
-        //API stuff
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
-                .addApi(Nearby.CONNECTIONS_API)
-                .build();
-
-
-
         getSupportActionBar().setTitle("Choose a Winner");
         numBlackCards = cp.getNumberOfBlackCards();
         numWhiteCards = cp.getNumberOfWhiteCards();

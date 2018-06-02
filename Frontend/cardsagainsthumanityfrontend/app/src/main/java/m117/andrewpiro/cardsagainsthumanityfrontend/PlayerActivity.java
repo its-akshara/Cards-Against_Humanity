@@ -1,49 +1,17 @@
 package m117.andrewpiro.cardsagainsthumanityfrontend;
 
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.content.pm.PackageManager;
 import android.widget.TextView;
 import java.util.Random;
-import java.util.HashMap;
-import com.google.android.gms.common.api.GoogleApiClient;
 import android.content.Intent;
 import playerInformation.Player;
 import cahCardParser.cardParser;
-import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
-import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.connection.AdvertisingOptions;
-import com.google.android.gms.nearby.connection.ConnectionInfo;
-import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
-import com.google.android.gms.nearby.connection.ConnectionResolution;
-import com.google.android.gms.nearby.connection.ConnectionsClient;
-import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
-import com.google.android.gms.nearby.connection.DiscoveryOptions;
-import com.google.android.gms.nearby.connection.EndpointDiscoveryCallback;
-import com.google.android.gms.nearby.connection.Payload;
-import com.google.android.gms.nearby.connection.PayloadCallback;
-import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
-import com.google.android.gms.nearby.connection.PayloadTransferUpdate.Status;
-import com.google.android.gms.nearby.connection.Strategy;
-import android.content.Context;
-import android.Manifest;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 
 public class PlayerActivity extends AppCompatActivity {
-
-
-
     TextView playerIDDisplay;
     TextView blackCardQuestion;
     TextView noCardChosen;
@@ -61,11 +29,6 @@ public class PlayerActivity extends AppCompatActivity {
     Button update;
     Player player;
     Bundle previousActivityInfo;
-    public GoogleApiClient mGoogleApiClient;
-    //Stores cardNo->Index of Card in Parser
-    HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
-
-
 
     /*
     protected void hardCode()
@@ -74,8 +37,6 @@ public class PlayerActivity extends AppCompatActivity {
         cardText[1] = "UCLA";
     }
     */
-
-    // Callbacks for finding other devices
 
     protected void update(){
         //randomly select one black card
@@ -119,14 +80,6 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
 
         getSupportActionBar().setTitle("Select a White Card");
-
-        //API stuff
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
-                .addApi(Nearby.CONNECTIONS_API)
-                .build();
-
 
         //hardCode();
         player = new Player();
@@ -176,7 +129,6 @@ public class PlayerActivity extends AppCompatActivity {
 
             cardIDs[i] = wCardID;
             cardText[i] = cp.getWhiteCardByIndex(wCardID);
-            cardToParseIndex.put(i,wCardID);
 
         }
 
@@ -242,9 +194,7 @@ public class PlayerActivity extends AppCompatActivity {
                     noCardChosen = findViewById(R.id.selectACard);
                     noCardChosen.setText("Please choose a card!");
                 } else{
-                    //byte array for information transfer
-                    byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
-                          Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+                    Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
                     i.putExtra("PLAYER_ID",player.getPlayer());
                     i.putExtra("ROUND",player.getRound());
                     startActivity(i);
