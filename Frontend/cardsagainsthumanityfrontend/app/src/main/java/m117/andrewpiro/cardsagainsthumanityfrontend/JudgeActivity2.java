@@ -225,7 +225,7 @@ public class JudgeActivity2 extends AppCompatActivity {
         super.onStop();
     }
 
-    
+
 
 
     @Override
