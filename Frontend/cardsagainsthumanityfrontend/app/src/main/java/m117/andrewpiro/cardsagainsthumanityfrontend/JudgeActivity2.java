@@ -93,16 +93,20 @@ public class JudgeActivity2 extends AppCompatActivity {
                     Log.i(TAG,"Received payload as Judge from player.");
 
                     byte[] receivedCard = payload.asBytes();
-                    opponentEndpointId[count] = endpointId; //1 or 2
-                    playerToEndpointId.put((int)receivedCard[0],endpointId); //player to endpoint
-                    cards[0] = (TextView) findViewById(R.id.player1Card);
-                    cards[1] = (TextView) findViewById(R.id.player2Card);
-                    cardLocationToPlayer.put(count,(int)receivedCard[0]); //card location to player number
-                    cardText[count] = cp.getWhiteCardByIndex(receivedCard[1]);
-                    String temp = (String) cardText[count];
-                    Log.i(TAG, temp);
-                    cards[count].setText(cardText[count]);
-                    count++;
+                    if(receivedCard[0]!=-1)
+                    {
+                        opponentEndpointId[count] = endpointId; //1 or 2
+                        playerToEndpointId.put((int)receivedCard[0],endpointId); //player to endpoint
+                        cards[0] = (TextView) findViewById(R.id.player1Card);
+                        cards[1] = (TextView) findViewById(R.id.player2Card);
+                        cardLocationToPlayer.put(count,(int)receivedCard[0]); //card location to player number
+                        cardText[count] = cp.getWhiteCardByIndex(receivedCard[1]);
+                        String temp = (String) cardText[count];
+                        Log.i(TAG, temp);
+                        cards[count].setText(cardText[count]);
+                        count++;
+                    }
+
                 }
 
                 @Override
@@ -340,7 +344,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     errorMessage.setText("Please choose a winner!");
                 } else {
                     int tmp = cardLocationToPlayer.get(selectedCard);
-                    byte[] winningPlayer = {(byte)tmp};
+                    byte[] winningPlayer = {-1,-1,(byte)tmp};
                     for(int i = 0; i<count;i++)
                     {
                         connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(winningPlayer));

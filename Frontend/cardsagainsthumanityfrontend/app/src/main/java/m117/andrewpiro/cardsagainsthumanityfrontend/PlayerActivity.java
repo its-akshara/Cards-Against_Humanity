@@ -82,7 +82,9 @@ public class PlayerActivity extends AppCompatActivity {
     Player player;
     Bundle previousActivityInfo;
     boolean receivedResult = false;
-    String opponentEndpointId;
+    String[] opponentEndpointId;
+    String currOpponentEndpointId;
+    int count = 0;
     int winner = -1;
    // public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
@@ -97,24 +99,28 @@ public class PlayerActivity extends AppCompatActivity {
                 //we only need this one and not transfer bc transfer is for file/stream
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     byte[] res = payload.asBytes();
-                    winner = res[0];
-                    CharSequence text = "Winner is "+Integer.toString(winner);
-                    //create toast (pop up window) and last for a while to show winner
-                    Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
-                    receivedResult = true;
-                    player.updatePlayer();
-                    if (player.isJudge()) {
-                        Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
-                        i.putExtra("PLAYER_ID", player.getPlayer());
-                        i.putExtra("ROUND", player.getRound());
-                        startActivity(i);
-                    } else {
-                        finish();
-                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-                        i.putExtra("PLAYER_ID", player.getPlayer());
-                        i.putExtra("ROUND", player.getRound());
-                        startActivity(i);
+                    winner = res[2];
+                    if(winner!=-1)
+                    {
+                        CharSequence text = "Winner is "+Integer.toString(winner);
+                        //create toast (pop up window) and last for a while to show winner
+                        Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
+                        receivedResult = true;
+                        player.updatePlayer();
+                        if (player.isJudge()) {
+                            Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                            i.putExtra("PLAYER_ID", player.getPlayer());
+                            i.putExtra("ROUND", player.getRound());
+                            startActivity(i);
+                        } else {
+                            finish();
+                            Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                            i.putExtra("PLAYER_ID", player.getPlayer());
+                            i.putExtra("ROUND", player.getRound());
+                            startActivity(i);
+                        }
                     }
+
                 }
 
                 @Override
@@ -155,9 +161,9 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
-                        opponentEndpointId = endpointId;
-                        connectionsClient.stopDiscovery();
-                        connectionsClient.stopAdvertising();
+                        opponentEndpointId[count] = endpointId;
+                        count++;
+                        currOpponentEndpointId = endpointId;
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
 
@@ -396,15 +402,17 @@ public class PlayerActivity extends AppCompatActivity {
                 } else {
                     //byte array for information transfer
 
-                    byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
-
-                    connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(selectedCardInfo));
+                    byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),-1};
+                    for(int i=0; i<count;i++)
+                        connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
 
                     if(receivedResult)
                     {
                         player.updatePlayer();
+                        connectionsClient.stopDiscovery();
+                        connectionsClient.stopAdvertising();
                         if (player.isJudge()) {
                             Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
