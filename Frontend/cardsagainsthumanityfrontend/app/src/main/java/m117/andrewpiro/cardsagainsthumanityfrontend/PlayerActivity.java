@@ -357,10 +357,10 @@ public class PlayerActivity extends AppCompatActivity {
                             i.putExtra("ROUND", player.getRound());
                             startActivity(i);
                         } else {
-//                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-//                        i.putExtra("PLAYER_ID", player.getPlayer());
-//                        i.putExtra("ROUND", player.getRound());
-//                        startActivity(i);
+                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                        i.putExtra("PLAYER_ID", player.getPlayer());
+                        i.putExtra("ROUND", player.getRound());
+                        startActivity(i);
                         }
                     }
 
