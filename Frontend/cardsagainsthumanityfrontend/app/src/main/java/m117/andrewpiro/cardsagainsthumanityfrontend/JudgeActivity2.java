@@ -93,7 +93,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     Log.i(TAG,"Received payload as Judge from player.");
 
                     byte[] receivedCard = payload.asBytes();
-                    opponentEndpointId[receivedCard[0]] = endpointId; //1 or 2
+                    opponentEndpointId[count] = endpointId; //1 or 2
                     playerToEndpointId.put((int)receivedCard[0],endpointId); //player to endpoint
                     cards[0] = (TextView) findViewById(R.id.player1Card);
                     cards[1] = (TextView) findViewById(R.id.player2Card);
@@ -204,6 +204,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     /** Starts looking for other players using Nearby Connections. */
     private void startDiscovery() {
         // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
+        Log.i(TAG, "Judge: Discovery started");
         connectionsClient.startDiscovery(
                 getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
         //we send package to ensure we're both of the same thing
@@ -344,6 +345,9 @@ public class JudgeActivity2 extends AppCompatActivity {
                     {
                         connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(winningPlayer));
                     }
+                     connectionsClient.stopDiscovery();
+                    connectionsClient.stopAdvertising();
+                    player.updatePlayer();;
                     Log.i(TAG, "Sent Payload");
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());

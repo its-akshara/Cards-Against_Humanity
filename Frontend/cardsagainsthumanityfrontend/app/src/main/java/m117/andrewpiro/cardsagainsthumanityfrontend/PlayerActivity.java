@@ -109,6 +109,7 @@ public class PlayerActivity extends AppCompatActivity {
                         i.putExtra("ROUND", player.getRound());
                         startActivity(i);
                     } else {
+                        finish();
                         Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                         i.putExtra("PLAYER_ID", player.getPlayer());
                         i.putExtra("ROUND", player.getRound());
@@ -211,6 +212,7 @@ public class PlayerActivity extends AppCompatActivity {
     /** Starts looking for other players using Nearby Connections. */
     private void startDiscovery() {
         // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
+        Log.i(TAG, "Player "+player.getPlayerAsString()+ ": Started discovery."); 
         connectionsClient.startDiscovery(
                 getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
         //we send package to ensure we're both of the same thing
