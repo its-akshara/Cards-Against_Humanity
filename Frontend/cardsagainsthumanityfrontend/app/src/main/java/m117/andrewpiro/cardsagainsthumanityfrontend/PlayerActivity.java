@@ -101,6 +101,18 @@ public class PlayerActivity extends AppCompatActivity {
                     //create toast (pop up window) and last for a while to show winner
                     Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
                     receivedResult = true;
+                    player.updatePlayer();
+                    if (player.isJudge()) {
+                        Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                        i.putExtra("PLAYER_ID", player.getPlayer());
+                        i.putExtra("ROUND", player.getRound());
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+                        i.putExtra("PLAYER_ID", player.getPlayer());
+                        i.putExtra("ROUND", player.getRound());
+                        startActivity(i);
+                    }
                 }
 
                 @Override
@@ -213,13 +225,13 @@ public class PlayerActivity extends AppCompatActivity {
         //spokes: receive information
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void sendPayload(String endpointId, Payload payload) {
-        if (payload.getType() == Payload.Type.BYTES) {
-            // No need to track progress for bytes.
-            return;
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    private void sendPayload(String endpointId, Payload payload) {
+//        if (payload.getType() == Payload.Type.BYTES) {
+//            // No need to track progress for bytes.
+//            return;
+//        }
+//    }
 
     /*
     protected void hardCode()
@@ -384,7 +396,8 @@ public class PlayerActivity extends AppCompatActivity {
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
 
                     connectionsClient.sendPayload(player.getPlayerAsString(),Payload.fromBytes(selectedCardInfo));
-
+                    Log.i(TAG, "Sent Payload");
+                    update.setText("Sent Card");
 
                     if(receivedResult)
                     {

@@ -203,13 +203,13 @@ public class JudgeActivity2 extends AppCompatActivity {
         //spokes: receive information
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void sendPayload(String endpointId, Payload payload) {
-        if (payload.getType() == Payload.Type.BYTES) {
-            // No need to track progress for bytes.
-            return;
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    private void sendPayload(String endpointId, Payload payload) {
+//        if (payload.getType() == Payload.Type.BYTES) {
+//            // No need to track progress for bytes.
+//            return;
+//        }
+//    }
     @TargetApi(Build.VERSION_CODES.M)
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -325,7 +325,7 @@ public class JudgeActivity2 extends AppCompatActivity {
 
                     byte[] winningPlayer = {(byte)selectedCard};
                     connectionsClient.sendPayload(player.getPlayerAsString(),Payload.fromBytes(winningPlayer));
-
+                    Log.i(TAG, "Sent Payload");
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());
                     i.putExtra("ROUND", player.getRound());
