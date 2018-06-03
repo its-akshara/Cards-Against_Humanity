@@ -1,5 +1,6 @@
 package m117.andrewpiro.cardsagainsthumanityfrontend;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -200,6 +201,8 @@ public class PlayerActivity extends AppCompatActivity {
     }
     */
 
+    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onStart() {
         super.onStart();

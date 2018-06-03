@@ -1,11 +1,14 @@
 package m117.andrewpiro.cardsagainsthumanityfrontend;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.connection.ConnectionsClient;
+import com.google.android.gms.nearby.connection.Strategy;
 
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +36,25 @@ public class JudgeActivity2 extends AppCompatActivity {
     Bundle previousActivityInfo;
     Player player;
 //    public GoogleApiClient mGoogleApiClient;
+
+    //Copied from Player Activity
+    private static final String TAG = "CardsAgainstM117";
+
+    private static final String[] REQUIRED_PERMISSIONS =
+            new String[] {
+                    android.Manifest.permission.BLUETOOTH,
+                    android.Manifest.permission.BLUETOOTH_ADMIN,
+                    android.Manifest.permission.ACCESS_WIFI_STATE,
+                    android.Manifest.permission.CHANGE_WIFI_STATE,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+            };
+
+    private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
+
+    private static final Strategy STRATEGY = Strategy.P2P_CLUSTER;
+
+    // Our handle to Nearby Connections
+    private ConnectionsClient connectionsClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +141,11 @@ public class JudgeActivity2 extends AppCompatActivity {
                     errorMessage = (TextView) findViewById(R.id.noCardChoosen);
                     errorMessage.setText("Please choose a winner!");
                 } else {
-                    Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+
+                    byte[] winningPlayer = {(byte)selectedCard};
+
+
+                    Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());
                     i.putExtra("ROUND", player.getRound());
                     startActivity(i);

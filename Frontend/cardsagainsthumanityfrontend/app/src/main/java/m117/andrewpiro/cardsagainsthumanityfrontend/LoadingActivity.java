@@ -18,7 +18,9 @@ public class LoadingActivity extends AppCompatActivity {
     Player currentPlayer;
     Bundle previousActivityInfo;
     boolean winnerChosen = true;
-    public GoogleApiClient mGoogleApiClient;
+
+
+    //public GoogleApiClient mGoogleApiClient;
 
 
     @Override
