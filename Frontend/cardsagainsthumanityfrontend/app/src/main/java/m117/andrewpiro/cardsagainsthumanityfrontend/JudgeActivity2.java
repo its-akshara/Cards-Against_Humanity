@@ -130,6 +130,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
+                        Log.i(TAG, endpointId+" is the player we're getting data from");
 
                         // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
