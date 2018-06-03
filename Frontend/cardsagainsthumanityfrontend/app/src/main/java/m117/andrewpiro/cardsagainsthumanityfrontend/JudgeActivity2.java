@@ -32,7 +32,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     Button confirm;
     Bundle previousActivityInfo;
     Player player;
-    public GoogleApiClient mGoogleApiClient;
+//    public GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,11 @@ public class JudgeActivity2 extends AppCompatActivity {
 
         //API stuff
         //API stuff
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
-                .addApi(Nearby.CONNECTIONS_API)
-                .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
+//                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
+//                .addApi(Nearby.CONNECTIONS_API)
+//                .build();
 
 
 

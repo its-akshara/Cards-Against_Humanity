@@ -28,12 +28,12 @@ public class LoadingActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        //API stuff
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
-                .addApi(Nearby.CONNECTIONS_API)
-                .build();
+//        //API stuff
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
+//                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
+//                .addApi(Nearby.CONNECTIONS_API)
+//                .build();
 
         currentPlayer  = new Player();
         previousActivityInfo = getIntent().getExtras();

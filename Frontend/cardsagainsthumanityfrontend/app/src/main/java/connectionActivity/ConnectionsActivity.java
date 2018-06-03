@@ -157,6 +157,7 @@ public abstract class ConnectionsActivity extends AppCompatActivity {
     }
 
     /** Called when our Activity has been made visible to the user. */
+   // @RequiresApi(api = Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onStart() {

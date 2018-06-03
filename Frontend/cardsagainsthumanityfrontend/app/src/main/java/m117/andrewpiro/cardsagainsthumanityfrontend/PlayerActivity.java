@@ -61,7 +61,7 @@ public class PlayerActivity extends AppCompatActivity {
     Button update;
     Player player;
     Bundle previousActivityInfo;
-    public GoogleApiClient mGoogleApiClient;
+   // public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
     HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
 
@@ -241,13 +241,29 @@ public class PlayerActivity extends AppCompatActivity {
                 if(selectedCard == -1) {
                     noCardChosen = findViewById(R.id.selectACard);
                     noCardChosen.setText("Please choose a card!");
-                } else{
+                } else {
                     //byte array for information transfer
+
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
-                          Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
-                    i.putExtra("PLAYER_ID",player.getPlayer());
-                    i.putExtra("ROUND",player.getRound());
-                    startActivity(i);
+
+
+                    player.updatePlayer();
+                    if (player.isJudge()) {
+                        Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                        i.putExtra("PLAYER_ID", player.getPlayer());
+                        i.putExtra("ROUND", player.getRound());
+                        startActivity(i);
+                    } else {
+//                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
+//                        i.putExtra("PLAYER_ID", player.getPlayer());
+//                        i.putExtra("ROUND", player.getRound());
+//                        startActivity(i);
+                    }
+
+//                    Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
+//                    i.putExtra("PLAYER_ID",player.getPlayer());
+//                    i.putExtra("ROUND",player.getRound());
+//                    startActivity(i);
                 }
             }
         });
