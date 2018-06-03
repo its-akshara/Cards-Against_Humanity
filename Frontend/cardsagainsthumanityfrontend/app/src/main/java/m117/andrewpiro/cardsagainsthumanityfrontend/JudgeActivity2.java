@@ -35,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import playerInformation.Player;
+
+import java.util.HashMap;
 import java.util.Random;
 
 import cahCardParser.cardParser;
@@ -43,7 +45,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     TextView playerIDDisplay;
     TextView blackCardQuestion;
     TextView errorMessage;
-    static int count = 1;
+    static int count = 0;
     final int CARD_NUMBER = 2;
     int selectedCard = -1;
     CharSequence Question;
@@ -54,10 +56,11 @@ public class JudgeActivity2 extends AppCompatActivity {
     int numWhiteCards;
     Random rand = new Random();
     Button confirm;
-    String opponentEndpointId;
+    String[] opponentEndpointId = {"","",""};
     Bundle previousActivityInfo;
     Player player;
-    byte[] receivedPlayerCards;
+    HashMap<Integer, Integer> cardLocationToPlayer = new HashMap<Integer, Integer>();
+    HashMap<Integer,String> playerToEndpointId;
 //    public GoogleApiClient mGoogleApiClient;
 
     //Copied from Player Activity
@@ -89,13 +92,17 @@ public class JudgeActivity2 extends AppCompatActivity {
                     Log.i(TAG,"Received payload as Judge from player.");
 
                     byte[] receivedCard = payload.asBytes();
+                    opponentEndpointId[receivedCard[0]] = endpointId; //1 or 2 or 3
+                    playerToEndpointId.put((int)receivedCard[0],endpointId);
                     cards[0] = (TextView) findViewById(R.id.player1Card);
                     cards[1] = (TextView) findViewById(R.id.player2Card);
-                    cardText[receivedCard[0]] = cp.getWhiteCardByIndex(receivedCard[1]);
-                    String temp = (String) cardText[receivedCard[0]];
-                    Log.i(TAG, temp);
-                    cards[receivedCard[0]].setText(cardText[receivedCard[0]]);
+                    cardLocationToPlayer.put(count,(int)receivedCard[0]); //card location to player number
+                    cardText[count] = cp.getWhiteCardByIndex(receivedCard[1]);
 
+                    String temp = (String) cardText[count];
+                    Log.i(TAG, temp);
+                    cards[count].setText(cardText[count]);
+                    count++;
                 }
 
                 @Override
@@ -140,7 +147,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
-                        opponentEndpointId = endpointId;
+                        //opponentEndpointId = endpointId;
                         // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
@@ -331,9 +338,12 @@ public class JudgeActivity2 extends AppCompatActivity {
                     errorMessage = (TextView) findViewById(R.id.noCardChoosen);
                     errorMessage.setText("Please choose a winner!");
                 } else {
-
-                    byte[] winningPlayer = {(byte)selectedCard};
-                    connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(winningPlayer));
+                    int tmp = cardLocationToPlayer.get(selectedCard);
+                    byte[] winningPlayer = {(byte)tmp};
+                    for(int i = 0; i<count;i++)
+                    {
+                        connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(winningPlayer));
+                    }
                     Log.i(TAG, "Sent Payload");
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());
