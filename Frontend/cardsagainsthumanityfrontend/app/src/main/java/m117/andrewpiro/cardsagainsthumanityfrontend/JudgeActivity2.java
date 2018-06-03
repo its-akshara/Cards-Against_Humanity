@@ -281,6 +281,10 @@ public class JudgeActivity2 extends AppCompatActivity {
         blackCardQuestion.setText(Question);
 
 
+        startAdvertising();
+        startDiscovery();
+
+
 
         //set up on click listeners
         cards[0].setOnClickListener(new View.OnClickListener() {

@@ -270,6 +270,10 @@ public class PlayerActivity extends AppCompatActivity {
         currentRound = (TextView)findViewById(R.id.round);
         currentRound.setText("Round "+(player.getRound()+1));
 
+        startAdvertising();
+        startDiscovery();
+
+
         //randomly select one black card
         int bCardID = rand.nextInt(numBlackCards);
         Question = cp.getBlackCardByIndex(bCardID);
@@ -378,7 +382,7 @@ public class PlayerActivity extends AppCompatActivity {
 
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
 
-
+                    connectionsClient.sendPayload(player.getPlayerAsString(),Payload.fromBytes(selectedCardInfo));
 
 
                     if(receivedResult)
