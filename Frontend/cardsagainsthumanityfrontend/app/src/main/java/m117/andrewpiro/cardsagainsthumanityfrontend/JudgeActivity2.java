@@ -98,7 +98,6 @@ public class JudgeActivity2 extends AppCompatActivity {
                     cards[1] = (TextView) findViewById(R.id.player2Card);
                     cardLocationToPlayer.put(count,(int)receivedCard[0]); //card location to player number
                     cardText[count] = cp.getWhiteCardByIndex(receivedCard[1]);
-
                     String temp = (String) cardText[count];
                     Log.i(TAG, temp);
                     cards[count].setText(cardText[count]);
