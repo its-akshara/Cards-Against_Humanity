@@ -131,7 +131,10 @@ public class JudgeActivity2 extends AppCompatActivity {
                 }
 
                 @Override
-                public void onEndpointLost(String endpointId) {} //don't care for right now
+                public void onEndpointLost(String endpointId) {
+
+                    Log.i(TAG,"Endpoint lost.");
+                } //don't care for right now
             };
 
     // Callbacks for connections to other devices
@@ -217,6 +220,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
     private void startAdvertising() {
         // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
+        Log.i(TAG, "Judge: Advertising started");
         connectionsClient.startAdvertising(
                 player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
         //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
@@ -267,7 +271,7 @@ public class JudgeActivity2 extends AppCompatActivity {
 //                .build();
 
 
-
+        Log.i(TAG,"OnCreate() has been called.");
         getSupportActionBar().setTitle("Choose a Winner");
         numBlackCards = cp.getNumberOfBlackCards();
         numWhiteCards = cp.getNumberOfWhiteCards();

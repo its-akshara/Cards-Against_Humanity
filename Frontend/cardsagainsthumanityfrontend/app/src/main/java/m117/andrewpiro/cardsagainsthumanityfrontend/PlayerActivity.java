@@ -227,6 +227,7 @@ public class PlayerActivity extends AppCompatActivity {
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
     private void startAdvertising() {
         // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
+        Log.i(TAG, "Player "+player.getPlayerAsString()+ ": Started advertising.");
         connectionsClient.startAdvertising(
                 player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
         //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
@@ -277,7 +278,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Select a White Card");
 
-
+        Log.i(TAG,"OnCreate() has been called.");
 
         //hardCode();
         player = new Player();
@@ -402,7 +403,7 @@ public class PlayerActivity extends AppCompatActivity {
                 } else {
                     //byte array for information transfer
 
-                    byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),-1};
+                    byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),10};
                     for(int i =0; i<count;i++)
                         connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
