@@ -289,7 +289,7 @@ public class PlayerActivity extends AppCompatActivity {
 
 
         //randomly select one black card
-        int bCardID = rand.nextInt(numBlackCards);
+        int bCardID = player.getRound();
         Question = cp.getBlackCardByIndex(bCardID);
 
         //receive the info about the black card from a server. Use the global value

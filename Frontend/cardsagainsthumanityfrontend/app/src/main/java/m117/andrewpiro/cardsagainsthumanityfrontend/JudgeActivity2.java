@@ -267,7 +267,7 @@ public class JudgeActivity2 extends AppCompatActivity {
         connectionsClient = Nearby.getConnectionsClient(this);
 
         //randomly select one black card
-        int bCardID = rand.nextInt(numBlackCards);
+        int bCardID = player.getRound();
         Question = cp.getBlackCardByIndex(bCardID);
 
 
