@@ -57,6 +57,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     Random rand = new Random();
     Button confirm;
     String[] opponentEndpointId = {"","",""};
+    String currOpponentEndpointId;
     Bundle previousActivityInfo;
     Player player;
     HashMap<Integer, Integer> cardLocationToPlayer = new HashMap<Integer, Integer>();
@@ -146,7 +147,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
-                        //opponentEndpointId = endpointId;
+                        currOpponentEndpointId = endpointId;
                         // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
