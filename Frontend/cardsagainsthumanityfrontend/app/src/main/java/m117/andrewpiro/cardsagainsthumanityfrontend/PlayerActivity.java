@@ -154,8 +154,8 @@ public class PlayerActivity extends AppCompatActivity {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
 
-                       // connectionsClient.stopDiscovery();
-                        //connectionsClient.stopAdvertising();
+                        connectionsClient.stopDiscovery();
+                        connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
 
