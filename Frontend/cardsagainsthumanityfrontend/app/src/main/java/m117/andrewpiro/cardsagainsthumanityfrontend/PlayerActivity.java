@@ -263,6 +263,7 @@ public class PlayerActivity extends AppCompatActivity {
         previousActivityInfo = getIntent().getExtras();
         player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
         player.setRound(previousActivityInfo.getInt("ROUND"));
+        connectionsClient = Nearby.getConnectionsClient(this);
 
         playerIDDisplay= (TextView) findViewById(R.id.playerID);
         playerIDDisplay.setText("Player " + (1+player.getPlayer()));

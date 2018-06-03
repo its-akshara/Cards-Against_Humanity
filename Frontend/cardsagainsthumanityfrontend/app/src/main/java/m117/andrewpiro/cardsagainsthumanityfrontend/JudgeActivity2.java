@@ -85,10 +85,13 @@ public class JudgeActivity2 extends AppCompatActivity {
                 //function that we are overriding in order for what to do when we receive payload
                 //we only need this one and not transfer bc transfer is for file/stream
                 public void onPayloadReceived(String endpointId, Payload payload) {
+                    Log.i(TAG,"Received payload as Judge from player.");
                     byte[] receivedCard = payload.asBytes();
                     cards[0] = (TextView) findViewById(R.id.player1Card);
                     cards[1] = (TextView) findViewById(R.id.player2Card);
                     cardText[receivedCard[0]] = cp.getWhiteCardByIndex(receivedCard[1]);
+                    String temp = (String) cardText[receivedCard[0]];
+                    Log.i(TAG, temp);
                     cards[receivedCard[0]].setText(cardText[receivedCard[0]]);
 
                 }
@@ -251,6 +254,7 @@ public class JudgeActivity2 extends AppCompatActivity {
         previousActivityInfo = getIntent().getExtras();
         player.setRound(previousActivityInfo.getInt("ROUND"));
         player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
+        connectionsClient = Nearby.getConnectionsClient(this);
 
         //randomly select one black card
         int bCardID = rand.nextInt(numBlackCards);
