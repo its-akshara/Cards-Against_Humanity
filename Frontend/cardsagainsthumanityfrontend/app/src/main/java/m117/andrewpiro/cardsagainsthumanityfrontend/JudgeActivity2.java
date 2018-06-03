@@ -54,6 +54,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     int numWhiteCards;
     Random rand = new Random();
     Button confirm;
+    String opponentEndpointId;
     Bundle previousActivityInfo;
     Player player;
     byte[] receivedPlayerCards;
@@ -86,6 +87,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                 //we only need this one and not transfer bc transfer is for file/stream
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     Log.i(TAG,"Received payload as Judge from player.");
+
                     byte[] receivedCard = payload.asBytes();
                     cards[0] = (TextView) findViewById(R.id.player1Card);
                     cards[1] = (TextView) findViewById(R.id.player2Card);
@@ -138,7 +140,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
-
+                        opponentEndpointId = endpointId;
                         // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
@@ -331,7 +333,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                 } else {
 
                     byte[] winningPlayer = {(byte)selectedCard};
-                    connectionsClient.sendPayload(player.getPlayerAsString(),Payload.fromBytes(winningPlayer));
+                    connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(winningPlayer));
                     Log.i(TAG, "Sent Payload");
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());

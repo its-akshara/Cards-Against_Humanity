@@ -82,6 +82,7 @@ public class PlayerActivity extends AppCompatActivity {
     Player player;
     Bundle previousActivityInfo;
     boolean receivedResult = false;
+    String opponentEndpointId;
     int winner = -1;
    // public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
@@ -153,7 +154,7 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
-
+                        opponentEndpointId = endpointId;
                         connectionsClient.stopDiscovery();
                         connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
@@ -395,7 +396,7 @@ public class PlayerActivity extends AppCompatActivity {
 
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
 
-                    connectionsClient.sendPayload(player.getPlayerAsString(),Payload.fromBytes(selectedCardInfo));
+                    connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
 
