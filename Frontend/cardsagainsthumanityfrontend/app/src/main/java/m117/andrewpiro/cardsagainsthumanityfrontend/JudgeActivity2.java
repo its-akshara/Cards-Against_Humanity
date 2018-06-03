@@ -98,7 +98,14 @@ public class JudgeActivity2 extends AppCompatActivity {
 
                 @Override
                 public void onPayloadTransferUpdate(String endpointId, PayloadTransferUpdate update) {
-
+                    Log.i(TAG,"Transfer Update: payload as Judge from player.");
+//                    byte[] receivedCard = update.
+//                    cards[0] = (TextView) findViewById(R.id.player1Card);
+//                    cards[1] = (TextView) findViewById(R.id.player2Card);
+//                    cardText[receivedCard[0]] = cp.getWhiteCardByIndex(receivedCard[1]);
+//                    String temp = (String) cardText[receivedCard[0]];
+//                    Log.i(TAG, temp);
+//                    cards[receivedCard[0]].setText(cardText[receivedCard[0]]);
                 }
 
             };
