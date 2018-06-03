@@ -61,6 +61,7 @@ public class PlayerActivity extends AppCompatActivity {
     Button update;
     Player player;
     Bundle previousActivityInfo;
+    boolean receivedResult = false;
    // public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
     HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
@@ -74,45 +75,7 @@ public class PlayerActivity extends AppCompatActivity {
         cardText[1] = "UCLA";
     }
     */
-
-    // Callbacks for finding other devices
-
-    protected void update(){
-        //randomly select one black card
-        int bCardID = rand.nextInt(numBlackCards);
-        Question = cp.getBlackCardByIndex(bCardID);
-
-        //get round
-        currentRound = (TextView)findViewById(R.id.round);
-        currentRound.setText("Round "+player.getRound());
-
-        //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
-        blackCardQuestion.setText(Question);
-
-        cards[0] = (TextView) findViewById(R.id.card0);
-        cards[1] = (TextView) findViewById(R.id.card1);
-        cards[2] = (TextView) findViewById(R.id.card2);
-        cards[3] = (TextView) findViewById(R.id.card3);
-
-        //need to display cards you can choose
-        for(int i = 0; i<CARD_NUMBER; i++)
-        {
-            int wCardID = rand.nextInt(numWhiteCards);
-            cardText[i] = cp.getWhiteCardByIndex(wCardID);
-
-        }
-
-
-        //JSON parser stuff
-
-
-        cards[0].setText(cardText[0]);
-        cards[1].setText(cardText[1]);
-        cards[2].setText(cardText[2]);
-        cards[3].setText(cardText[3]);
-    }
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -247,18 +210,24 @@ public class PlayerActivity extends AppCompatActivity {
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue()};
 
 
-                    player.updatePlayer();
-                    if (player.isJudge()) {
-                        Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
-                        i.putExtra("PLAYER_ID", player.getPlayer());
-                        i.putExtra("ROUND", player.getRound());
-                        startActivity(i);
-                    } else {
+
+
+                    if(receivedResult)
+                    {
+                        player.updatePlayer();
+                        if (player.isJudge()) {
+                            Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
+                            i.putExtra("PLAYER_ID", player.getPlayer());
+                            i.putExtra("ROUND", player.getRound());
+                            startActivity(i);
+                        } else {
 //                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
 //                        i.putExtra("PLAYER_ID", player.getPlayer());
 //                        i.putExtra("ROUND", player.getRound());
 //                        startActivity(i);
+                        }
                     }
+
 
 //                    Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
 //                    i.putExtra("PLAYER_ID",player.getPlayer());
