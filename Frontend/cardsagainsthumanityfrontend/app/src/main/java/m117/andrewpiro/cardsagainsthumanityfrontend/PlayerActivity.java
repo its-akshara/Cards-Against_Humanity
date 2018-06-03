@@ -82,7 +82,7 @@ public class PlayerActivity extends AppCompatActivity {
     Player player;
     Bundle previousActivityInfo;
     boolean receivedResult = false;
-    String[] opponentEndpointId;
+    String[] opponentEndpointId = {"","",""};
     String currOpponentEndpointId;
     int count = 0;
     int winner = -1;
