@@ -42,7 +42,7 @@ import android.support.annotation.Nullable;
 
 
 public class PlayerActivity extends AppCompatActivity {
-
+//tags are needed in order to identify the application
     private static final String TAG = "CardsAgainstM117";
 
     private static final String[] REQUIRED_PERMISSIONS =
@@ -53,9 +53,10 @@ public class PlayerActivity extends AppCompatActivity {
                     Manifest.permission.CHANGE_WIFI_STATE,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
             };
-
+//set up
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
+//setting up n->m connection bc we need cluster
     private static final Strategy STRATEGY = Strategy.P2P_CLUSTER;
 
     // Our handle to Nearby Connections
@@ -90,10 +91,14 @@ public class PlayerActivity extends AppCompatActivity {
     private final PayloadCallback payloadCallback =
             new PayloadCallback() {
                 @Override
+                //this is from nearby connections
+                //function that we are overriding in order for what to do when we receive payload
+                //we only need this one and not transfer bc transfer is for file/stream
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     byte[] res = payload.asBytes();
                     winner = res[0];
                     CharSequence text = "Winner is "+Integer.toString(winner);
+                    //create toast (pop up window) and last for a while to show winner
                     Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
                     receivedResult = true;
                 }
@@ -106,6 +111,8 @@ public class PlayerActivity extends AppCompatActivity {
             };
 
     // Callbacks for finding other devices
+    //on end point found we found the thing we need to connect to
+    //request a connection with what we found (this is my ID, ID of the connection of where you are, etc.)
     private final EndpointDiscoveryCallback endpointDiscoveryCallback =
             new EndpointDiscoveryCallback() {
                 @Override
@@ -115,16 +122,19 @@ public class PlayerActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onEndpointLost(String endpointId) {}
+                public void onEndpointLost(String endpointId) {} //don't care for right now
             };
 
     // Callbacks for connections to other devices
+    //this is what we're going to do when we have a connection
+    //during the life cycle of the connection this is what we do (callback)
     private final ConnectionLifecycleCallback connectionLifecycleCallback =
             new ConnectionLifecycleCallback() {
                 @Override
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     Log.i(TAG, "onConnectionInitiated: accepting connection");
                     connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    //someone else has started connection so we need to accept
                 }
 
                 @Override
@@ -134,15 +144,19 @@ public class PlayerActivity extends AppCompatActivity {
 
                        // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
+                        //bc we have multiple and we want to keep them going
+                        //if this is successful note the success
 
                     } else {
                         Log.i(TAG, "onConnectionResult: connection failed");
+                        //otherwise FAILURE AND TELL EVERYONE
                     }
                 }
 
                 @Override
                 public void onDisconnected(String endpointId) {
                     Log.i(TAG, "onDisconnected: disconnected from the opponent");
+                    //boo, note.
                 }
             };
 
@@ -172,6 +186,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         for (int grantResult : grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
+                //make a toast if stuff doesn't work bc bread makes everything better
                 Toast.makeText(this, "Missing permissions!", Toast.LENGTH_LONG).show();
                 finish();
                 return;
@@ -185,6 +200,7 @@ public class PlayerActivity extends AppCompatActivity {
         // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
         connectionsClient.startDiscovery(
                 getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
+        //we send package to ensure we're both of the same thing
     }
 
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
@@ -192,6 +208,9 @@ public class PlayerActivity extends AppCompatActivity {
         // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
         connectionsClient.startAdvertising(
                 player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
+        //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
+        //hubs: send out information
+        //spokes: receive information
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
