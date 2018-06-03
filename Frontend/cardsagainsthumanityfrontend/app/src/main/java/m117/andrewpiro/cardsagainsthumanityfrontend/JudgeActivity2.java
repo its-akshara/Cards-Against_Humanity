@@ -93,7 +93,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     Log.i(TAG,"Received payload as Judge from player.");
 
                     byte[] receivedCard = payload.asBytes();
-                    if(receivedCard[0]!=-1)
+                    if(receivedCard[0]!=10)
                     {
                         opponentEndpointId[count] = endpointId; //1 or 2
                         playerToEndpointId.put((int)receivedCard[0],endpointId); //player to endpoint
@@ -344,7 +344,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     errorMessage.setText("Please choose a winner!");
                 } else {
                     int tmp = cardLocationToPlayer.get(selectedCard);
-                    byte[] winningPlayer = {-1,-1,(byte)tmp};
+                    byte[] winningPlayer = {10,10,(byte)tmp};
                     for(int i = 0; i<count;i++)
                     {
                         connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(winningPlayer));

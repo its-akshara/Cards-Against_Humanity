@@ -100,7 +100,7 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     byte[] res = payload.asBytes();
                     winner = res[2];
-                    if(winner!=-1)
+                    if(winner!=10)
                     {
                         CharSequence text = "Winner is "+Integer.toString(winner);
                         //create toast (pop up window) and last for a while to show winner
@@ -403,7 +403,7 @@ public class PlayerActivity extends AppCompatActivity {
                     //byte array for information transfer
 
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),-1};
-                    for(int i=0; i<count;i++)
+                    for(int i =0; i<count;i++)
                         connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
