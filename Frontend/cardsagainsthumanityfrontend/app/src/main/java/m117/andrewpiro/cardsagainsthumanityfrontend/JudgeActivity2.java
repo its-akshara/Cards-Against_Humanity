@@ -46,7 +46,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     TextView blackCardQuestion;
     TextView errorMessage;
     static int count = 0;
-    final int CARD_NUMBER = 2;
+    final int CARD_NUMBER = 3;
     int selectedCard = -1;
     CharSequence Question;
     TextView[] cards = new TextView[CARD_NUMBER];
@@ -61,7 +61,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     Bundle previousActivityInfo;
     Player player;
     HashMap<Integer, Integer> cardLocationToPlayer = new HashMap<Integer, Integer>();
-    HashMap<Integer,String> playerToEndpointId;
+    HashMap<Integer,String> playerToEndpointId = new HashMap<Integer, String>();;
 //    public GoogleApiClient mGoogleApiClient;
 
     //Copied from Player Activity
@@ -93,8 +93,8 @@ public class JudgeActivity2 extends AppCompatActivity {
                     Log.i(TAG,"Received payload as Judge from player.");
 
                     byte[] receivedCard = payload.asBytes();
-                    opponentEndpointId[receivedCard[0]] = endpointId; //1 or 2 or 3
-                    playerToEndpointId.put((int)receivedCard[0],endpointId);
+                    opponentEndpointId[receivedCard[0]] = endpointId; //1 or 2
+                    playerToEndpointId.put((int)receivedCard[0],endpointId); //player to endpoint
                     cards[0] = (TextView) findViewById(R.id.player1Card);
                     cards[1] = (TextView) findViewById(R.id.player2Card);
                     cardLocationToPlayer.put(count,(int)receivedCard[0]); //card location to player number
