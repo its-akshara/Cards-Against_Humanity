@@ -323,7 +323,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                 } else {
 
                     byte[] winningPlayer = {(byte)selectedCard};
-
+                    connectionsClient.sendPayload(player.getPlayerAsString(),Payload.fromBytes(winningPlayer));
 
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());
