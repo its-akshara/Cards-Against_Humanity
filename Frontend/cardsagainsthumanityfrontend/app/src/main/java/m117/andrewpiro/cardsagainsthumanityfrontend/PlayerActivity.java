@@ -92,6 +92,8 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     byte[] res = payload.asBytes();
                     winner = res[0];
+                    CharSequence text = "Winner is "+Integer.toString(winner);
+                    Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
                     receivedResult = true;
                 }
 
@@ -191,6 +193,13 @@ public class PlayerActivity extends AppCompatActivity {
                 player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void sendPayload(String endpointId, Payload payload) {
+        if (payload.getType() == Payload.Type.BYTES) {
+            // No need to track progress for bytes.
+            return;
+        }
+    }
 
     /*
     protected void hardCode()
@@ -200,8 +209,9 @@ public class PlayerActivity extends AppCompatActivity {
     }
     */
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onStart() {
+    protected void onStart(){
         super.onStart();
 
         if (!hasPermissions(this, REQUIRED_PERMISSIONS)) {
