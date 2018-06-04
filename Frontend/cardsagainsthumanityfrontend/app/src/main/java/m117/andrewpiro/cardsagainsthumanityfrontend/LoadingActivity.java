@@ -22,6 +22,7 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
         currentPlayer  = new Player();
         previousActivityInfo = getIntent().getExtras();
         currentPlayer.setRound(previousActivityInfo.getInt("ROUND"));
