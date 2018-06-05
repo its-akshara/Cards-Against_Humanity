@@ -153,6 +153,7 @@ public class PlayerActivity extends AppCompatActivity {
                                         public void onSuccess(Void unusedResult) {
                                             // We successfully requested a connection. Now both sides
                                             // must accept before the connection is established.
+                                            Log.i(TAG,"PLAYER: Found Endpoint.");
                                         }
                                     })
                             .addOnFailureListener(
