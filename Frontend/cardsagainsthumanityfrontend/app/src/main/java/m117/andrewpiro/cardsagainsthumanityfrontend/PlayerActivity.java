@@ -454,7 +454,7 @@ public class PlayerActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
                         toast.show();
-                        Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()])
+                        Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
 //                        connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         if (player.isJudge()) {
