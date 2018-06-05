@@ -4,111 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayerActivity">
+    tools:context=".PlayerActivity"
+    android:background="@drawable/ucla_bg">
 
     <TextView
         android:id="@+id/playerID"
         android:layout_width="54dp"
         android:layout_height="22dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:text="Player"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/blackQuestion"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="62dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginStart="44dp"
         android:text="BlackCardQuestion"
         android:textAlignment="textStart"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/playerID"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="30dp" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/card0"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="16dp"
+        android:baselineAligned="false"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blackQuestion"
-        app:layout_optimizationLevel="standard">
+        android:background="@drawable/wc_border"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="119dp">
+    <TextView
+        android:id="@+id/card1"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blackQuestion"
+        android:background="@drawable/wc_border"/>
 
-            <TextView
-                android:id="@+id/card0"
-                android:layout_width="150dp"
-                android:layout_height="175dp"
-                android:baselineAligned="false"
-                android:padding="10dp"
-                android:text="TextView"
-                android:textSize="18sp" />
+    <TextView
+        android:id="@+id/card2"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="14dp"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card0"
+        android:background="@drawable/wc_border"/>
 
-            <TextView
-                android:id="@+id/card1"
-                android:layout_width="151dp"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="TextView"
-                android:textSize="18sp" />
-        </TableRow>
+    <TextView
+        android:id="@+id/card3"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="14dp"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card1"
+        android:background="@drawable/wc_border"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/selectACard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/card2"
-                android:layout_width="150dp"
-                android:layout_height="175dp"
-                android:padding="10dp"
-                android:text="TextView"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/card3"
-                android:layout_width="150dp"
-                android:layout_height="175dp"
-                android:padding="10dp"
-                android:text="TextView"
-                android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/selectACard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/reset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select" />
-        </TableRow>
-    </TableLayout>
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginStart="33dp"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/round"

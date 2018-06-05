@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".JudgeActivity2"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    android:background="@drawable/ucla_bg">
 
     <TextView
         android:id="@+id/blackQuestion"
@@ -17,39 +18,42 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/reset"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginStart="187dp"
         android:text="Select"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/noCardChoosen" />
 
     <TextView
         android:id="@+id/player1Card"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="45dp"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
         android:text="Player1Text"
         android:textSize="18sp"
-        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
 
     <TextView
         android:id="@+id/player2Card"
-        android:layout_width="150dp"
-        android:layout_height="175dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="45dp"
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
         android:text="Player2Text"
         android:textSize="18sp"
-        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blackQuestion" />
 

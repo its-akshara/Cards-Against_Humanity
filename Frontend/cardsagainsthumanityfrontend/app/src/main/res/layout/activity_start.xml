@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartActivity">
+    tools:context=".StartActivity"
+    android:background="@drawable/ucla_bg">
 
     <TextView
         android:id="@+id/textView"
@@ -16,13 +17,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintVertical_bias="0.071"
+        android:textColor="@android:color/black"
+        />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="88dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="115dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="77dp"
         android:text="Start"
@@ -32,69 +35,71 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TableLayout
-        android:layout_width="226dp"
-        android:layout_height="198dp"
-        android:layout_marginBottom="22dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginStart="80dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="20dp"
+        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerPic">
+        app:layout_constraintTop_toBottomOf="@+id/playerPic"
+        app:layout_constraintVertical_bias="0.0">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/player1"
-                android:layout_width="113dp"
-                android:layout_height="87dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:alpha="0.4"
                 android:src="@drawable/player1"
                 tools:layout_editor_absoluteX="107dp"
                 tools:layout_editor_absoluteY="155dp" />
 
             <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/blank" />
+
+            <ImageView
                 android:id="@+id/player2"
-                android:layout_width="113dp"
-                android:layout_height="87dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:alpha="0.4"
                 app:srcCompat="@drawable/player2" />
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="70dp">
-
-            <ImageView
-                android:id="@+id/placeholder"
-                android:layout_width="113dp"
-                android:layout_height="25dp"
-                android:alpha="0.4"
-                app:srcCompat="@drawable/blank"
-                tools:layout_editor_absoluteX="64dp"
-                tools:layout_editor_absoluteY="225dp" />
-        </TableRow>
-
-        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/player3"
-                android:layout_width="113dp"
-                android:layout_height="87dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:alpha="0.4"
                 app:srcCompat="@drawable/player3"
                 tools:layout_editor_absoluteX="64dp"
                 tools:layout_editor_absoluteY="225dp" />
 
             <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/blank" />
+
+            <ImageView
                 android:id="@+id/player4"
-                android:layout_width="113dp"
-                android:layout_height="87dp"
+                android:layout_width="98dp"
+                android:layout_height="100dp"
                 android:alpha="0.4"
                 app:srcCompat="@drawable/player4" />
         </TableRow>
@@ -110,7 +115,8 @@
         android:text="Choose Your Player!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/player_text"
@@ -118,11 +124,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="75dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="You Chose: "
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startButton" />
+        app:layout_constraintTop_toBottomOf="@+id/startButton"
+        android:textColor="@android:color/black"/>
 
 </android.support.constraint.ConstraintLayout>
