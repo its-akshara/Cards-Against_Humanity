@@ -17,7 +17,7 @@
         android:layout_marginTop="25dp"
         android:text="BlackCardQuestion"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
