@@ -80,7 +80,7 @@ public class JudgeActivity2 extends AppCompatActivity {
 
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
-    private static final Strategy STRATEGY = Strategy.P2P_CLUSTER;
+    private static final Strategy STRATEGY = Strategy.P2P_STAR;
 
     // Our handle to Nearby Connections
     private ConnectionsClient connectionsClient;

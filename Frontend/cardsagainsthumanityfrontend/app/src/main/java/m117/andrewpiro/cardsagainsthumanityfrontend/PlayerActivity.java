@@ -57,7 +57,7 @@ public class PlayerActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
 //setting up n->m connection bc we need cluster
-    private static final Strategy STRATEGY = Strategy.P2P_CLUSTER;
+    private static final Strategy STRATEGY = Strategy.P2P_STAR;
 
     // Our handle to Nearby Connections
     private ConnectionsClient connectionsClient;
@@ -82,7 +82,7 @@ public class PlayerActivity extends AppCompatActivity {
     Bundle previousActivityInfo;
 
     boolean receivedResult = false;
-    String[] opponentEndpointId = {"","",""};
+    String opponentEndpointId = "";
     String currOpponentEndpointId;
     int count = 0;
     int winner = -1;
@@ -161,7 +161,7 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
-                        opponentEndpointId[count] = endpointId;
+                        opponentEndpointId = endpointId;
                         count++;
                         currOpponentEndpointId = endpointId;
                         //bc we have multiple and we want to keep them going
@@ -409,8 +409,7 @@ public class PlayerActivity extends AppCompatActivity {
                     //byte array for information transfer
 
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),10};
-                    for(int i =0; i<count;i++)
-                        connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(selectedCardInfo));
+                        connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
 
