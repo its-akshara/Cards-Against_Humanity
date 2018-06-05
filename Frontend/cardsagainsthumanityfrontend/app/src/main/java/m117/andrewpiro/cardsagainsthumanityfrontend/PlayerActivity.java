@@ -84,7 +84,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     boolean receivedResult = false;
     String opponentEndpointId ;
-    String currOpponentEndpointId;
+   // String currOpponentEndpointId;
     int count = 0;
     int winner = -1;
    // public GoogleApiClient mGoogleApiClient;
@@ -193,7 +193,8 @@ public class PlayerActivity extends AppCompatActivity {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
-                        currOpponentEndpointId = endpointId;
+                       // currOpponentEndpointId = endpointId;
+                        opponentEndpointId = endpointId;
                         connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going

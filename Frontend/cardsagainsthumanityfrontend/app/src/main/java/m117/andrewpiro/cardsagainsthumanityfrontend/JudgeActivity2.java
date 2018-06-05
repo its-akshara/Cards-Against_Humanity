@@ -159,6 +159,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
                         currOpponentEndpointId = endpointId;
+                        //opponentEndpointId = endpointId;
                         // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
