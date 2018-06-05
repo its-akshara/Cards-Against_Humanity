@@ -104,21 +104,31 @@ public class PlayerActivity extends AppCompatActivity {
                     winner = res[2];
                     if(winner!=10)
                     {
-                        CharSequence text = "Winner is "+Integer.toString(winner);
-                        //create toast (pop up window) and last for a while to show winner
-                        Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
-                        receivedResult = true;
                         player.updatePlayer();
+                        player.updatePoints(winner);
+                        CharSequence text = "Your Points: "+Integer.toString(player.getGamePoints()[player.getPlayer()]);
+                        //create toast (pop up window) to show your current points
+                        Toast toast = Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
+                        toast.show();
+                        Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
+//                        connectionsClient.stopDiscovery();
+                        //connectionsClient.stopAdvertising();
                         if (player.isJudge()) {
                             Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
                             i.putExtra("ROUND", player.getRound());
+                            i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                            i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                            i.putExtra("POINTS_2",player.getGamePoints()[2]);
                             startActivity(i);
                         } else {
-                            finish();
                             Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
                             i.putExtra("ROUND", player.getRound());
+                            i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                            i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                            i.putExtra("POINTS_2",player.getGamePoints()[2]);
                             startActivity(i);
                         }
                     }
@@ -445,36 +455,6 @@ public class PlayerActivity extends AppCompatActivity {
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
 
-                    if(receivedResult)
-                    {
-                        player.updatePlayer();
-                        player.updatePoints(winner);
-                        CharSequence text = "Your Points: "+Integer.toString(player.getGamePoints()[player.getPlayer()]);
-                        //create toast (pop up window) to show your current points
-                        Toast toast = Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
-                        toast.show();
-                        Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
-//                        connectionsClient.stopDiscovery();
-                        //connectionsClient.stopAdvertising();
-                        if (player.isJudge()) {
-                            Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
-                            i.putExtra("PLAYER_ID", player.getPlayer());
-                            i.putExtra("ROUND", player.getRound());
-                            i.putExtra("POINTS_0",player.getGamePoints()[0]);
-                            i.putExtra("POINTS_1",player.getGamePoints()[1]);
-                            i.putExtra("POINTS_2",player.getGamePoints()[2]);
-                            startActivity(i);
-                        } else {
-                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-                        i.putExtra("PLAYER_ID", player.getPlayer());
-                        i.putExtra("ROUND", player.getRound());
-                            i.putExtra("POINTS_0",player.getGamePoints()[0]);
-                            i.putExtra("POINTS_1",player.getGamePoints()[1]);
-                            i.putExtra("POINTS_2",player.getGamePoints()[2]);
-                        startActivity(i);
-                        }
-                    }
 
                 }
             }
