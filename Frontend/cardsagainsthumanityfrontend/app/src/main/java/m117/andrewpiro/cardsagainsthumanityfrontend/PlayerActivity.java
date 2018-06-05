@@ -106,7 +106,10 @@ public class PlayerActivity extends AppCompatActivity {
                     {
                         player.updatePlayer();
                         player.updatePoints(winner);
-                        CharSequence text = "Your Points: "+Integer.toString(player.getGamePoints()[player.getPlayer()]);
+                        CharSequence text = "Winner is "+Integer.toString(winner);
+                        //create toast (pop up window) and last for a while to show winner
+                        Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
+                        text = "Your Points: "+Integer.toString(player.getGamePoints()[player.getPlayer()]);
                         //create toast (pop up window) to show your current points
                         Toast toast = Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
