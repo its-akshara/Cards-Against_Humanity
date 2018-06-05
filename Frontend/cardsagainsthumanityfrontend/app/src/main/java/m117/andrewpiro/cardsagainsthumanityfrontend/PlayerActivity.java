@@ -246,10 +246,32 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     /** Starts looking for other players using Nearby Connections. */
+//    private void startDiscovery() {
+//        Log.i(TAG, "Player: Started discovering");
+//        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery( getPackageName(),endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
+//
+//    }
     private void startDiscovery() {
-        Log.i(TAG, "Player: Started discovering");
-        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery( getPackageName(),endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
-
+        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery(
+                getPackageName(),
+                endpointDiscoveryCallback,
+                new DiscoveryOptions(STRATEGY))
+                .addOnSuccessListener(
+                        new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unusedResult) {
+                                // We're discovering!
+                                Log.i(TAG,"PLAYER: Started Discovering");
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // We were unable to start discovering.
+                                Log.i(TAG,e.getMessage());
+                            }
+                        });
     }
 
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
