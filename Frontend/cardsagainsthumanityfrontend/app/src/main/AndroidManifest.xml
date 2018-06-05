@@ -29,15 +29,6 @@
             android:label="@string/title_activity_loading"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name=".MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".MessageHandling"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity android:name=".JudgeActivity2"></activity>
         <meta-data android:name="com.google.android.gms.version"
