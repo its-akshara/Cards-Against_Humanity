@@ -58,7 +58,7 @@ public class PlayerActivity extends AppCompatActivity {
 //set up
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
-//setting up n->m connection bc we need cluster
+//setting up star connections
     private static final Strategy STRATEGY = Strategy.P2P_STAR;
 
     // Our handle to Nearby Connections
@@ -69,7 +69,6 @@ public class PlayerActivity extends AppCompatActivity {
     TextView blackCardQuestion;
     TextView noCardChosen;
     TextView currentRound;
-    //static int count = 1;
     final int CARD_NUMBER = 4;
     int selectedCard = -1;
     CharSequence Question = "What college do you go to?";
@@ -88,7 +87,6 @@ public class PlayerActivity extends AppCompatActivity {
    // String currOpponentEndpointId;
     int count = 0;
     int winner = -1;
-   // public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
     HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
 
@@ -115,8 +113,6 @@ public class PlayerActivity extends AppCompatActivity {
                         toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
                         toast.show();
                         Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
-//                        connectionsClient.stopDiscovery();
-                        //connectionsClient.stopAdvertising();
                         if (player.isJudge()) {
                             Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
@@ -151,10 +147,6 @@ public class PlayerActivity extends AppCompatActivity {
     private final EndpointDiscoveryCallback endpointDiscoveryCallback =
             new EndpointDiscoveryCallback() {
                 @Override
-//                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
-//                    Log.i(TAG, "onEndpointFound: endpoint found, connecting");
-//                    Nearby.getConnectionsClient(getApplicationContext()).requestConnection(player.getPlayerAsString(),endpointId,connectionLifecycleCallback);
-//                }
                 public void onEndpointFound(
                         String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
                     Nearby.getConnectionsClient(getApplicationContext()).requestConnection(
@@ -207,10 +199,8 @@ public class PlayerActivity extends AppCompatActivity {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
-                       // currOpponentEndpointId = endpointId;
                         opponentEndpointId = endpointId;
                         connectionsClient.stopDiscovery();
-                        //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
 
@@ -261,13 +251,7 @@ public class PlayerActivity extends AppCompatActivity {
         recreate();
     }
 
-    /** Starts looking for other players using Nearby Connections. */
-//    private void startDiscovery() {
-//        Log.i(TAG, "Player: Started discovering");
-//        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery( getPackageName(),endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
-//
-//    }
-    private void startDiscovery() {
+     private void startDiscovery() {
         Nearby.getConnectionsClient(getApplicationContext()).startDiscovery(
                 getPackageName(),
                 endpointDiscoveryCallback,
