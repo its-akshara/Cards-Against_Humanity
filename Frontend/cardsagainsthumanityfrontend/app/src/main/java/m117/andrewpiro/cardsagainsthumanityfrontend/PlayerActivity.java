@@ -3,6 +3,7 @@ package m117.andrewpiro.cardsagainsthumanityfrontend;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
+import com.google.android.gms.tasks.*;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -136,13 +137,41 @@ public class PlayerActivity extends AppCompatActivity {
     private final EndpointDiscoveryCallback endpointDiscoveryCallback =
             new EndpointDiscoveryCallback() {
                 @Override
-                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
-                    Log.i(TAG, "onEndpointFound: endpoint found, connecting");
-                    connectionsClient.requestConnection(player.getPlayerAsString(), endpointId, connectionLifecycleCallback);
+//                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
+//                    Log.i(TAG, "onEndpointFound: endpoint found, connecting");
+//                    Nearby.getConnectionsClient(getApplicationContext()).requestConnection(player.getPlayerAsString(),endpointId,connectionLifecycleCallback);
+//                }
+                public void onEndpointFound(
+                        String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
+                    Nearby.getConnectionsClient(getApplicationContext()).requestConnection(
+                            player.getPlayerAsString(),
+                            endpointId,
+                            connectionLifecycleCallback)
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unusedResult) {
+                                            // We successfully requested a connection. Now both sides
+                                            // must accept before the connection is established.
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Nearby Connections failed to request the connection.
+                                            Log.i(TAG,e.getMessage());
+                                        }
+                                    });
                 }
 
+
+
                 @Override
-                public void onEndpointLost(String endpointId) {} //don't care for right now
+                public void onEndpointLost(String endpointId) {
+
+                    Log.i(TAG,"Endpoint lost.");
+                } //don't care for right now
             };
 
     // Callbacks for connections to other devices
@@ -153,7 +182,8 @@ public class PlayerActivity extends AppCompatActivity {
                 @Override
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     Log.i(TAG, "onConnectionInitiated: accepting connection");
-                    connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    //connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    Nearby.getConnectionsClient(getApplicationContext()).acceptConnection(endpointId,payloadCallback);
                     //someone else has started connection so we need to accept
                 }
 
@@ -161,9 +191,10 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
-                        opponentEndpointId = endpointId;
-                        count++;
+                        Log.i(TAG, endpointId+" is the player we're getting data from");
                         currOpponentEndpointId = endpointId;
+                        connectionsClient.stopDiscovery();
+                        //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
 
@@ -179,7 +210,6 @@ public class PlayerActivity extends AppCompatActivity {
                     //boo, note.
                 }
             };
-
 
     /** Returns true if the app was granted all the permissions. Otherwise, returns false. */
     private static boolean hasPermissions(Context context, String... permissions) {
@@ -217,46 +247,17 @@ public class PlayerActivity extends AppCompatActivity {
 
     /** Starts looking for other players using Nearby Connections. */
     private void startDiscovery() {
-        // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
-        Log.i(TAG, "Player "+player.getPlayerAsString()+ ": Started discovery.");
-        connectionsClient.startDiscovery(
-                getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
-        //we send package to ensure we're both of the same thing
+        Log.i(TAG, "Player: Started discovering");
+        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery( getPackageName(),endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
+
     }
 
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
     private void startAdvertising() {
-        // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
-        Log.i(TAG, "Player "+player.getPlayerAsString()+ ": Started advertising.");
-        connectionsClient.startAdvertising(
-                player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
-        //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
-        //hubs: send out information
-        //spokes: receive information
+        Log.i(TAG, "Player: Started advertising");
+        Nearby.getConnectionsClient(getApplicationContext()).startAdvertising(player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
+
     }
-
-    /*
-    protected void hardCode()
-    {
-        cardText[0] = "USC";
-        cardText[1] = "UCLA";
-    }
-    */
-
-/*
-    protected void update(){
-        //randomly select one black card
-        int bCardID = rand.nextInt(numBlackCards);
-        Question = cp.getBlackCardByIndex(bCardID);
-
-        //get round
-        currentRound = (TextView)findViewById(R.id.round);
-        currentRound.setText("Round "+player.getRound());
-
-        //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
-        blackCardQuestion.setText(Question);
-*/
 
     @TargetApi(Build.VERSION_CODES.M)
 
@@ -299,7 +300,7 @@ public class PlayerActivity extends AppCompatActivity {
         currentRound = (TextView)findViewById(R.id.round);
         currentRound.setText("Round "+(player.getRound()+1));
 
-        startAdvertising();
+        //startAdvertising();
         startDiscovery();
 
 
@@ -420,8 +421,8 @@ public class PlayerActivity extends AppCompatActivity {
                     if(receivedResult)
                     {
                         player.updatePlayer();
-                        connectionsClient.stopDiscovery();
-                        connectionsClient.stopAdvertising();
+//                        connectionsClient.stopDiscovery();
+                        //connectionsClient.stopAdvertising();
                         if (player.isJudge()) {
                             Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());

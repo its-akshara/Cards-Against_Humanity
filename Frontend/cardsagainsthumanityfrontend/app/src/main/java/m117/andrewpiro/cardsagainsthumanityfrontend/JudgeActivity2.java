@@ -14,15 +14,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.*;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.AdvertisingOptions;
+import com.google.android.gms.nearby.connection.DiscoveryOptions;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
 import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
 import com.google.android.gms.nearby.connection.ConnectionResolution;
 import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
-import com.google.android.gms.nearby.connection.DiscoveryOptions;
 import com.google.android.gms.nearby.connection.EndpointDiscoveryCallback;
 import com.google.android.gms.nearby.connection.Payload;
 import com.google.android.gms.nearby.connection.PayloadCallback;
@@ -124,12 +124,13 @@ public class JudgeActivity2 extends AppCompatActivity {
                 }
 
             };
+
     private final EndpointDiscoveryCallback endpointDiscoveryCallback =
             new EndpointDiscoveryCallback() {
                 @Override
                 public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
                     Log.i(TAG, "onEndpointFound: endpoint found, connecting");
-                    connectionsClient.requestConnection(player.getPlayerAsString(), endpointId, connectionLifecycleCallback);
+                    Nearby.getConnectionsClient(getApplicationContext()).requestConnection(player.getPlayerAsString(),endpointId,connectionLifecycleCallback);
                 }
 
                 @Override
@@ -147,7 +148,8 @@ public class JudgeActivity2 extends AppCompatActivity {
                 @Override
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     Log.i(TAG, "onConnectionInitiated: accepting connection");
-                    connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    //connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    Nearby.getConnectionsClient(getApplicationContext()).acceptConnection(endpointId,payloadCallback);
                     //someone else has started connection so we need to accept
                 }
 
@@ -211,23 +213,77 @@ public class JudgeActivity2 extends AppCompatActivity {
     }
 
     /** Starts looking for other players using Nearby Connections. */
-    private void startDiscovery() {
-        // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
-        Log.i(TAG, "Judge: Discovery started");
-        connectionsClient.startDiscovery(
-                getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
-        //we send package to ensure we're both of the same thing
-    }
-
+//    private void startDiscovery() {
+//        // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
+//        Log.i(TAG, "Judge: Discovery started");
+//        connectionsClient.startDiscovery(
+//                getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
+//        //we send package to ensure we're both of the same thing
+//    }
+//    private void startDiscovery() {
+//        Log.i(TAG, "Judge: Started discovering");
+//        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery( getPackageName(),endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
+//
+//    }
+//    private void startDiscovery() {
+//        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery(
+//                getPackageName(),
+//                endpointDiscoveryCallback,
+//                new DiscoveryOptions(STRATEGY))
+//                .addOnSuccessListener(
+//                        new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void unusedResult) {
+//                                // We're discovering!
+//                                Log.i(TAG,"Judge: Started Discovering");
+//                            }
+//                        })
+//                .addOnFailureListener(
+//                        new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                // We were unable to start discovering.
+//                                Log.i(TAG,e.getMessage());
+//                            }
+//                        });
+//    }
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
+//    private void startAdvertising() {
+//        // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
+//        Log.i(TAG, "Judge: Advertising started");
+//        connectionsClient.startAdvertising(
+//                player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
+//        //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
+//        //hubs: send out information
+//        //spokes: receive information
+//    }
+//    private void startAdvertising() {
+//        Log.i(TAG, "Judge: Started advertising");
+//        Nearby.getConnectionsClient(getApplicationContext()).startAdvertising(player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
+//
+//    }
     private void startAdvertising() {
-        // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
-        Log.i(TAG, "Judge: Advertising started");
-        connectionsClient.startAdvertising(
-                player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
-        //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
-        //hubs: send out information
-        //spokes: receive information
+        Nearby.getConnectionsClient(getApplicationContext()).startAdvertising(
+                player.getPlayerAsString(),
+                getPackageName(),
+                connectionLifecycleCallback,
+                new AdvertisingOptions(STRATEGY))
+                .addOnSuccessListener(
+                        new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unusedResult) {
+                                // We're advertising!
+                                Log.i(TAG,"JUDGE: Started Advertising");
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // We were unable to start advertising.
+                                Log.i(TAG,"JUDGE:"+e.getMessage());
+                            }
+                        });
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.M)
@@ -304,7 +360,7 @@ public class JudgeActivity2 extends AppCompatActivity {
 
 
         startAdvertising();
-        startDiscovery();
+       // startDiscovery();
 
 
 
@@ -345,7 +401,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                     {
                         connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(winningPlayer));
                     }
-                     connectionsClient.stopDiscovery();
+                    // connectionsClient.stopDiscovery();
                     connectionsClient.stopAdvertising();
                     player.updatePlayer();;
                     Log.i(TAG, "Sent Payload");
