@@ -193,6 +193,7 @@ public class PlayerActivity extends AppCompatActivity {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
                         currOpponentEndpointId = endpointId;
+                        opponentEndpointId = endpointId;
                         connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
@@ -436,7 +437,7 @@ public class PlayerActivity extends AppCompatActivity {
                     //byte array for information transfer
 
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),10};
-                        connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(selectedCardInfo));
+                        Nearby.getConnectionsClient().sendPayload(opponentEndpointId,Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
 
