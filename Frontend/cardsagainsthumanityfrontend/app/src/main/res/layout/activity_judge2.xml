@@ -10,16 +10,18 @@
 
     <TextView
         android:id="@+id/blackQuestion"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="62dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="25dp"
         android:text="BlackCardQuestion"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@android:color/black"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/reset"
