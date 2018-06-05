@@ -283,6 +283,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 // We were unable to start advertising.
                                 Log.i(TAG,"JUDGE:"+e.getMessage());
+                                startAdvertising();
                             }
                         });
     }
@@ -329,6 +330,8 @@ public class JudgeActivity2 extends AppCompatActivity {
         previousActivityInfo = getIntent().getExtras();
         player.setRound(previousActivityInfo.getInt("ROUND"));
         player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
+        int[] points = {previousActivityInfo.getInt("POINTS_0"),previousActivityInfo.getInt("POINTS_1"), previousActivityInfo.getInt("POINTS_2")};
+        player.setGamePoints(points);
         connectionsClient = Nearby.getConnectionsClient(this);
 
         //randomly select one black card
@@ -404,11 +407,15 @@ public class JudgeActivity2 extends AppCompatActivity {
                     }
                     // connectionsClient.stopDiscovery();
                     connectionsClient.stopAdvertising();
+                    connectionsClient.stopAllEndpoints();
                     player.updatePlayer();;
                     Log.i(TAG, "Sent Payload");
                     Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                     i.putExtra("PLAYER_ID", player.getPlayer());
                     i.putExtra("ROUND", player.getRound());
+                    i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                    i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                    i.putExtra("POINTS_2",player.getGamePoints()[2]);
                     startActivity(i);
                 }
             }

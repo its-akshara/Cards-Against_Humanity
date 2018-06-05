@@ -15,6 +15,7 @@ public class Player {
     //private String androidID;
     private int numberOfPlayers = 3;
     private int round = 0;
+    private int[] gamePoints = {0,0,0};
 
     public boolean isJudge()
     {
@@ -29,6 +30,21 @@ public class Player {
 //        androidID = Settings.Secure.getString(, Settings.Secure.ANDROID_ID)
 //        int tmpPlayerID = androidID.hashCode();
 //        playerID = tmpPlayerID%numberOfPlayers;
+    }
+
+    public void updatePoints(int winner)
+    {
+        gamePoints[winner]+=1;
+    }
+
+    public void setGamePoints(int[] points)
+    {
+        for(int i =0; i<numberOfPlayers;i++)
+            gamePoints[i] = points[i];
+    }
+
+    public int[] getGamePoints() {
+        return gamePoints;
     }
 
     public int getRound()

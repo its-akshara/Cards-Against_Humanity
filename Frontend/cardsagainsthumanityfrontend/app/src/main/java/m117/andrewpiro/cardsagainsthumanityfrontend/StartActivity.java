@@ -109,11 +109,17 @@ public class StartActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                         i.putExtra("PLAYER_ID", player.getPlayer());
                         i.putExtra("ROUND", player.getRound());
+                        i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                        i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                        i.putExtra("POINTS_2",player.getGamePoints()[2]);
                         startActivity(i);
                     } else {
                         Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                         i.putExtra("PLAYER_ID", player.getPlayer());
                         i.putExtra("ROUND", player.getRound());
+                        i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                        i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                        i.putExtra("POINTS_2",player.getGamePoints()[2]);
                         startActivity(i);
                     }
                 }
