@@ -46,6 +46,8 @@ public class Player {
         return playerID;
     }
 
+    public String getPlayerAsString() {return String.valueOf(playerID);}
+
     public void setPlayerID(int n)
     {
         playerID = n;
