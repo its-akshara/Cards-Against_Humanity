@@ -1,0 +1,22 @@
+How to Run Our Code:
+
+Requirements: Android Studio, 2-3 Android Phones with at least API 23 (Can play
+with 2 phones, but there’s no point to the game if you don’t have at least 3)
+
+Setup:
+- Install Android Studio
+- Install Google Play Services SDK
+    - https://developers.google.com/android/guides/setup
+- Clone/Download the Android Studio project from Github
+    - https://github.com/its-akshara/Cards-Against_Humanity
+- Connect your phone(s) to your laptop(s), make sure USB debugging is enabled on
+all of them and for best results, connect them all to the same Wifi
+
+Building/Running the App:
+- File->Open the project in Android Studio, selecting the
+cardsagainsthumanityfrontend folder.
+- Run the project on each of your phones:
+    - NOTE: You must allow the app to access your location for the API to work
+- Make sure that each phone is a different player, we strongly recommends
+playing with only 3 players, because the connections aren’t reliable with any
+more than 3.
