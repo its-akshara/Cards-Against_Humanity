@@ -30,6 +30,7 @@ import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 import com.google.android.gms.nearby.connection.Strategy;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     TextView playerRound;
     TextView blackCardQuestion;
     TextView errorMessage;
+    TextView playerDisplay;
     static int count = 0;
     final int CARD_NUMBER = 3;
     int selectedCard = -1;
@@ -160,6 +162,9 @@ public class JudgeActivity2 extends AppCompatActivity {
                         Log.i(TAG, "onConnectionResult: connection successful");
                         Log.i(TAG, endpointId+" is the player we're getting data from");
                         currOpponentEndpointId = endpointId;
+                        Toast toast = Toast.makeText(getApplicationContext(), "Connected!",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         //opponentEndpointId = endpointId;
                         // connectionsClient.stopDiscovery();
                         //connectionsClient.stopAdvertising();
@@ -281,6 +286,8 @@ public class JudgeActivity2 extends AppCompatActivity {
         player.setGamePoints(points);
         playerRound = (TextView) findViewById(R.id.round);
         playerRound.setText("Round "+(player.getRound()+1));
+        playerDisplay = (TextView)findViewById(R.id.player);
+        playerDisplay.setText("Player "+(player.getPlayer()+1));
         connectionsClient = Nearby.getConnectionsClient(this);
 
         //randomly select one black card

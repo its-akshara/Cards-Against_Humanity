@@ -203,6 +203,9 @@ public class PlayerActivity extends AppCompatActivity {
                         connectionsClient.stopDiscovery();
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
+                        Toast toast = Toast.makeText(getApplicationContext(), "Connected!",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
 
                     } else {
                         Log.i(TAG, "onConnectionResult: connection failed");
