@@ -112,7 +112,7 @@ public class PlayerActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
                         toast.show();
-                        Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
+                        Log.i(TAG,"Points of Player"+(player.getPlayer()+1)+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
                         if (player.isJudge()) {
                             Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
