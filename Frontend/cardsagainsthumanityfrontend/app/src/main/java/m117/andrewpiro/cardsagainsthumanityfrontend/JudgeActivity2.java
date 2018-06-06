@@ -43,7 +43,7 @@ import java.util.Random;
 import cahCardParser.cardParser;
 
 public class JudgeActivity2 extends AppCompatActivity {
-    TextView playerIDDisplay;
+    TextView playerRound;
     TextView blackCardQuestion;
     TextView errorMessage;
     static int count = 0;
@@ -279,6 +279,8 @@ public class JudgeActivity2 extends AppCompatActivity {
         player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
         int[] points = {previousActivityInfo.getInt("POINTS_0"),previousActivityInfo.getInt("POINTS_1"), previousActivityInfo.getInt("POINTS_2")};
         player.setGamePoints(points);
+        playerRound = (TextView) findViewById(R.id.round);
+        playerRound.setText("Round "+(player.getRound()+1));
         connectionsClient = Nearby.getConnectionsClient(this);
 
         //randomly select one black card
