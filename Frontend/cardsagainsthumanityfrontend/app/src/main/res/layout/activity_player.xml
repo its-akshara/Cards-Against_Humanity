@@ -19,17 +19,15 @@
 
     <TextView
         android:id="@+id/blackQuestion"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="62dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginEnd="20dp"
         android:text="BlackCardQuestion"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="30dp" />
 
     <TextView
