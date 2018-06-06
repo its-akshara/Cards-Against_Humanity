@@ -17,6 +17,6 @@ Building/Running the App:
 cardsagainsthumanityfrontend folder.
 - Run the project on each of your phones:
     - NOTE: You must allow the app to access your location for the API to work
-- Make sure that each phone is a different player, we strongly recommends
+- Make sure that each phone is a different player, we strongly recommend
 playing with only 3 players, because the connections aren’t reliable with any
 more than 3.
