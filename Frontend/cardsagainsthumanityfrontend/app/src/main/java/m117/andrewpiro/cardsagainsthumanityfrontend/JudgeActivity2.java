@@ -56,6 +56,7 @@ public class JudgeActivity2 extends AppCompatActivity {
     CharSequence[] cardText = new CharSequence[CARD_NUMBER];
     cardParser cp = new cardParser();
     int numBlackCards;
+    int blackCard;
     int numWhiteCards;
     Random rand = new Random();
     Button confirm;
@@ -170,6 +171,9 @@ public class JudgeActivity2 extends AppCompatActivity {
                         //connectionsClient.stopAdvertising();
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
+                        byte[] blackCardInfo = {20,(byte)blackCard};
+                        connectionsClient.sendPayload(currOpponentEndpointId,Payload.fromBytes(blackCardInfo));
+
 
                     } else {
                         Log.i(TAG, "onConnectionResult: connection failed");
@@ -291,7 +295,8 @@ public class JudgeActivity2 extends AppCompatActivity {
         connectionsClient = Nearby.getConnectionsClient(this);
 
         //randomly select one black card
-        int bCardID = player.getRound();
+        int bCardID = rand.nextInt(numBlackCards);//player.getRound();
+        blackCard = bCardID;
         Question = cp.getBlackCardByIndex(bCardID);
 
 

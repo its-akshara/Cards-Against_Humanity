@@ -99,12 +99,38 @@ public class PlayerActivity extends AppCompatActivity {
                 //we only need this one and not transfer bc transfer is for file/stream
                 public void onPayloadReceived(String endpointId, Payload payload) {
                     byte[] res = payload.asBytes();
+                    if(res[0] == 20)
+                    {
+                        //randomly select one black card
+                        int bCardID = res[1];
+                        Question = cp.getBlackCardByIndex(bCardID);
+
+                        //receive the info about the black card from a server. Use the global value
+                        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
+                        blackCardQuestion.setText(Question);
+                        return;
+                    }
                     winner = res[2];
                     if(winner!=10)
                     {
                         player.updatePlayer();
                         player.updatePoints(winner);
-                        CharSequence text = "Winner is "+Integer.toString(winner);
+                        CharSequence text;
+                        switch (winner)
+                        {
+                            case 0:
+                                text = "Winner is Gene";
+                                break;
+                            case 1:
+                                text = "Winner is Smallberg";
+                                break;
+                            case 2:
+                                text = "Winner is Eggert";
+                                break;
+                            default:
+                                text = "Winner is Bad Coding Practices";
+                                break;
+                        }
                         //create toast (pop up window) and last for a while to show winner
                         Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
                         text = "Your Points: "+Integer.toString(player.getGamePoints()[player.getPlayer()]);
@@ -331,13 +357,13 @@ public class PlayerActivity extends AppCompatActivity {
         startDiscovery();
 
 
-        //randomly select one black card
-        int bCardID = player.getRound();
-        Question = cp.getBlackCardByIndex(bCardID);
-
-        //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
-        blackCardQuestion.setText(Question);
+//        //randomly select one black card
+//        int bCardID = player.getRound();
+//        Question = cp.getBlackCardByIndex(bCardID);
+//
+//        //receive the info about the black card from a server. Use the global value
+//        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
+//        blackCardQuestion.setText(Question);
 
         cards[0] = (TextView) findViewById(R.id.card0);
         cards[1] = (TextView) findViewById(R.id.card1);
