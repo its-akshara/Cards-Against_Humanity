@@ -433,7 +433,8 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(selectedCard == -1) {
                     noCardChosen = findViewById(R.id.selectACard);
-                    noCardChosen.setText("Please choose a card!");
+                    //noCardChosen.setText("Please choose a card!");
+                    update.setText("Please choose a card!");
                 }  else {
                     //byte array for information transfer
 
