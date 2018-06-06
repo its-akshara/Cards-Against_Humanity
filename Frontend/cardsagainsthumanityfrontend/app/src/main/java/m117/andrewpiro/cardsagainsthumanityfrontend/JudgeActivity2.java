@@ -105,6 +105,7 @@ public class JudgeActivity2 extends AppCompatActivity {
                         cardText[count] = cp.getWhiteCardByIndex(receivedCard[1]);
                         String temp = (String) cardText[count];
                         Log.i(TAG, temp);
+                        cards[count].setAlpha(1.0f);
                         cards[count].setText(cardText[count]);
                         count++;
                     }
