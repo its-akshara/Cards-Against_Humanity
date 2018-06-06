@@ -3,9 +3,11 @@ package m117.andrewpiro.cardsagainsthumanityfrontend;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
+import com.google.android.gms.tasks.*;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,8 +58,8 @@ public class PlayerActivity extends AppCompatActivity {
 //set up
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
 
-//setting up n->m connection bc we need cluster
-    private static final Strategy STRATEGY = Strategy.P2P_CLUSTER;
+//setting up star connections
+    private static final Strategy STRATEGY = Strategy.P2P_STAR;
 
     // Our handle to Nearby Connections
     private ConnectionsClient connectionsClient;
@@ -67,7 +69,6 @@ public class PlayerActivity extends AppCompatActivity {
     TextView blackCardQuestion;
     TextView noCardChosen;
     TextView currentRound;
-    //static int count = 1;
     final int CARD_NUMBER = 4;
     int selectedCard = -1;
     CharSequence Question = "What college do you go to?";
@@ -82,11 +83,10 @@ public class PlayerActivity extends AppCompatActivity {
     Bundle previousActivityInfo;
 
     boolean receivedResult = false;
-    String[] opponentEndpointId = {"","",""};
-    String currOpponentEndpointId;
+    String opponentEndpointId ;
+   // String currOpponentEndpointId;
     int count = 0;
     int winner = -1;
-   // public GoogleApiClient mGoogleApiClient;
     //Stores cardNo->Index of Card in Parser
     HashMap<Integer, Integer> cardToParseIndex = new HashMap<Integer, Integer>();
 
@@ -102,21 +102,32 @@ public class PlayerActivity extends AppCompatActivity {
                     winner = res[2];
                     if(winner!=10)
                     {
+                        player.updatePlayer();
+                        player.updatePoints(winner);
                         CharSequence text = "Winner is "+Integer.toString(winner);
                         //create toast (pop up window) and last for a while to show winner
                         Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG).show();
-                        receivedResult = true;
-                        player.updatePlayer();
+                        text = "Your Points: "+Integer.toString(player.getGamePoints()[player.getPlayer()]);
+                        //create toast (pop up window) to show your current points
+                        Toast toast = Toast.makeText(getApplicationContext(), text,Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.LEFT, 100, 200);
+                        toast.show();
+                        Log.i(TAG,"Points of Player"+player.getPlayer()+":"+Integer.toString(player.getGamePoints()[player.getPlayer()]));
                         if (player.isJudge()) {
                             Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
                             i.putExtra("ROUND", player.getRound());
+                            i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                            i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                            i.putExtra("POINTS_2",player.getGamePoints()[2]);
                             startActivity(i);
                         } else {
-                            finish();
                             Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
                             i.putExtra("PLAYER_ID", player.getPlayer());
                             i.putExtra("ROUND", player.getRound());
+                            i.putExtra("POINTS_0",player.getGamePoints()[0]);
+                            i.putExtra("POINTS_1",player.getGamePoints()[1]);
+                            i.putExtra("POINTS_2",player.getGamePoints()[2]);
                             startActivity(i);
                         }
                     }
@@ -136,13 +147,38 @@ public class PlayerActivity extends AppCompatActivity {
     private final EndpointDiscoveryCallback endpointDiscoveryCallback =
             new EndpointDiscoveryCallback() {
                 @Override
-                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
-                    Log.i(TAG, "onEndpointFound: endpoint found, connecting");
-                    connectionsClient.requestConnection(player.getPlayerAsString(), endpointId, connectionLifecycleCallback);
+                public void onEndpointFound(
+                        String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
+                    Nearby.getConnectionsClient(getApplicationContext()).requestConnection(
+                            player.getPlayerAsString(),
+                            endpointId,
+                            connectionLifecycleCallback)
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unusedResult) {
+                                            // We successfully requested a connection. Now both sides
+                                            // must accept before the connection is established.
+                                            Log.i(TAG,"PLAYER: Found Endpoint.");
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Nearby Connections failed to request the connection.
+                                            Log.i(TAG,e.getMessage());
+                                        }
+                                    });
                 }
 
+
+
                 @Override
-                public void onEndpointLost(String endpointId) {} //don't care for right now
+                public void onEndpointLost(String endpointId) {
+
+                    Log.i(TAG,"Endpoint lost.");
+                } //don't care for right now
             };
 
     // Callbacks for connections to other devices
@@ -153,7 +189,8 @@ public class PlayerActivity extends AppCompatActivity {
                 @Override
                 public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
                     Log.i(TAG, "onConnectionInitiated: accepting connection");
-                    connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    //connectionsClient.acceptConnection(endpointId, payloadCallback);
+                    Nearby.getConnectionsClient(getApplicationContext()).acceptConnection(endpointId,payloadCallback);
                     //someone else has started connection so we need to accept
                 }
 
@@ -161,9 +198,9 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onConnectionResult(String endpointId, ConnectionResolution result) {
                     if (result.getStatus().isSuccess()) {
                         Log.i(TAG, "onConnectionResult: connection successful");
-                        opponentEndpointId[count] = endpointId;
-                        count++;
-                        currOpponentEndpointId = endpointId;
+                        Log.i(TAG, endpointId+" is the player we're getting data from");
+                        opponentEndpointId = endpointId;
+                        connectionsClient.stopDiscovery();
                         //bc we have multiple and we want to keep them going
                         //if this is successful note the success
 
@@ -179,7 +216,6 @@ public class PlayerActivity extends AppCompatActivity {
                     //boo, note.
                 }
             };
-
 
     /** Returns true if the app was granted all the permissions. Otherwise, returns false. */
     private static boolean hasPermissions(Context context, String... permissions) {
@@ -215,48 +251,35 @@ public class PlayerActivity extends AppCompatActivity {
         recreate();
     }
 
-    /** Starts looking for other players using Nearby Connections. */
-    private void startDiscovery() {
-        // Note: Discovery may fail. To keep this demo simple, we don't handle failures.
-        Log.i(TAG, "Player "+player.getPlayerAsString()+ ": Started discovery.");
-        connectionsClient.startDiscovery(
-                getPackageName(), endpointDiscoveryCallback, new DiscoveryOptions(STRATEGY));
-        //we send package to ensure we're both of the same thing
+     private void startDiscovery() {
+        Nearby.getConnectionsClient(getApplicationContext()).startDiscovery(
+                getPackageName(),
+                endpointDiscoveryCallback,
+                new DiscoveryOptions(STRATEGY))
+                .addOnSuccessListener(
+                        new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unusedResult) {
+                                // We're discovering!
+                                Log.i(TAG,"PLAYER: Started Discovering");
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // We were unable to start discovering.
+                                Log.i(TAG,e.getMessage());
+                            }
+                        });
     }
 
     /** Broadcasts our presence using Nearby Connections so other players can find us. */
     private void startAdvertising() {
-        // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
-        Log.i(TAG, "Player "+player.getPlayerAsString()+ ": Started advertising.");
-        connectionsClient.startAdvertising(
-                player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
-        //send our id, our package name, (above), both endpoints can be hubs and spokes simult.
-        //hubs: send out information
-        //spokes: receive information
+        Log.i(TAG, "Player: Started advertising");
+        Nearby.getConnectionsClient(getApplicationContext()).startAdvertising(player.getPlayerAsString(), getPackageName(), connectionLifecycleCallback, new AdvertisingOptions(STRATEGY));
+
     }
-
-    /*
-    protected void hardCode()
-    {
-        cardText[0] = "USC";
-        cardText[1] = "UCLA";
-    }
-    */
-
-/*
-    protected void update(){
-        //randomly select one black card
-        int bCardID = rand.nextInt(numBlackCards);
-        Question = cp.getBlackCardByIndex(bCardID);
-
-        //get round
-        currentRound = (TextView)findViewById(R.id.round);
-        currentRound.setText("Round "+player.getRound());
-
-        //receive the info about the black card from a server. Use the global value
-        blackCardQuestion = (TextView) findViewById(R.id.blackQuestion);
-        blackCardQuestion.setText(Question);
-*/
 
     @TargetApi(Build.VERSION_CODES.M)
 
@@ -291,6 +314,8 @@ public class PlayerActivity extends AppCompatActivity {
         previousActivityInfo = getIntent().getExtras();
         player.setPlayerID(previousActivityInfo.getInt("PLAYER_ID"));
         player.setRound(previousActivityInfo.getInt("ROUND"));
+        int[] points = {previousActivityInfo.getInt("POINTS_0"),previousActivityInfo.getInt("POINTS_1"), previousActivityInfo.getInt("POINTS_2")};
+        player.setGamePoints(points);
         connectionsClient = Nearby.getConnectionsClient(this);
 
         playerIDDisplay= (TextView) findViewById(R.id.playerID);
@@ -299,7 +324,7 @@ public class PlayerActivity extends AppCompatActivity {
         currentRound = (TextView)findViewById(R.id.round);
         currentRound.setText("Round "+(player.getRound()+1));
 
-        startAdvertising();
+        //startAdvertising();
         startDiscovery();
 
 
@@ -316,7 +341,7 @@ public class PlayerActivity extends AppCompatActivity {
         cards[2] = (TextView) findViewById(R.id.card2);
         cards[3] = (TextView) findViewById(R.id.card3);
 
-        int[] cardIDs = new int [CARD_NUMBER];
+        final int[] cardIDs = new int [CARD_NUMBER];
 
         //need to display cards you can choose
         for(int i = 0; i<CARD_NUMBER; i++)
@@ -362,6 +387,7 @@ public class PlayerActivity extends AppCompatActivity {
                     cards[selectedCard].setBackgroundColor(Color.parseColor("#fafafa"));
                 }
                 selectedCard = 0;
+                cardToParseIndex.put(selectedCard,cardIDs[selectedCard]);
             }
         });
 
@@ -373,6 +399,7 @@ public class PlayerActivity extends AppCompatActivity {
                     cards[selectedCard].setBackgroundColor(Color.parseColor("#fafafa"));
                 }
                 selectedCard = 1;
+                cardToParseIndex.put(selectedCard,cardIDs[selectedCard]);
             }
         });
 
@@ -384,6 +411,7 @@ public class PlayerActivity extends AppCompatActivity {
                     cards[selectedCard].setBackgroundColor(Color.parseColor("#fafafa"));
                 }
                 selectedCard = 2;
+                cardToParseIndex.put(selectedCard,cardIDs[selectedCard]);
             }
         });
 
@@ -395,6 +423,7 @@ public class PlayerActivity extends AppCompatActivity {
                     cards[selectedCard].setBackgroundColor(Color.parseColor("#fafafa"));
                 }
                 selectedCard = 3;
+                cardToParseIndex.put(selectedCard,cardIDs[selectedCard]);
             }
         });
 
@@ -409,28 +438,10 @@ public class PlayerActivity extends AppCompatActivity {
                     //byte array for information transfer
 
                     byte[] selectedCardInfo = {((byte) player.getPlayer()), cardToParseIndex.get(selectedCard).byteValue(),10};
-                    for(int i =0; i<count;i++)
-                        connectionsClient.sendPayload(opponentEndpointId[i],Payload.fromBytes(selectedCardInfo));
+                        connectionsClient.sendPayload(opponentEndpointId,Payload.fromBytes(selectedCardInfo));
                     Log.i(TAG, "Sent Payload");
                     update.setText("Sent Card");
 
-                    if(receivedResult)
-                    {
-                        player.updatePlayer();
-                        connectionsClient.stopDiscovery();
-                        connectionsClient.stopAdvertising();
-                        if (player.isJudge()) {
-                            Intent i = new Intent(getApplicationContext(), JudgeActivity2.class);
-                            i.putExtra("PLAYER_ID", player.getPlayer());
-                            i.putExtra("ROUND", player.getRound());
-                            startActivity(i);
-                        } else {
-                        Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
-                        i.putExtra("PLAYER_ID", player.getPlayer());
-                        i.putExtra("ROUND", player.getRound());
-                        startActivity(i);
-                        }
-                    }
 
                 }
             }
